@@ -9,9 +9,15 @@ LIBLUA_FILENAME	= liblua.a
 GCC_COMPILE		= $(FLASCC_SDK)/usr/bin/gcc
 GPP_COMPILE		= $(FLASCC_SDK)/usr/bin/g++
 AR_LINK		= $(FLASCC_SDK)/usr/bin/ar
+RANLIB_LINK		= $(FLASCC_SDK)/usr/bin/ranlib
+ifneq (,$(findstring OSX, $(OS_PLATFORM)))
+	GCC_COMPILE		= $(FLASCC_SDK)/usr/bin/clang
+	GPP_COMPILE		= $(FLASCC_SDK)/usr/bin/clang++
+endif
 
-#
-AS3_COMPILE 		= java -jar "$(FLASCC_SDK_N)/usr/lib/asc2.jar"
+#JAVA 在osx平台无法识别用户目录’~‘
+SWIG_COMPILE		= $(FLASCC_SDK)/usr/bin/swig
+AS3_COMPILE 		= java -jar "./usr/lib/asc2.jar"
 
 #
 CPP_FLAGS_BASE	= -O2 -Wall -Wno-write-strings -Wno-trigraphs
@@ -35,26 +41,31 @@ flash:compile_cpp copy_include
 
 	@echo "-> AR link to static library."
 	cd ./tmp && $(AR_LINK) rcu ../lib/$(LIBLUA_FILENAME) $(LIBLUA_BASE)
+	cd ./tmp && $(RANLIB_LINK) ../lib/$(LIBLUA_FILENAME)
 
 	@echo "-> Generate SWIG wrappers around the functions in the library."
-	"$(FLASCC_SDK)/usr/bin/swig" -DLUA_32BITS -I./include -as3 -module Lua -outdir ./lib -includeall -ignoremissing -o ./flash/lflashapi_wrapper.c ./flash/lflashapi.h
+	$(SWIG_COMPILE) -DLUA_32BITS -I./include -as3 -module Lua -outdir ./lib -includeall -ignoremissing -o ./flash/lflashapi_wrapper.c ./flash/lflashapi.h
 
 	@echo "-> Compile the SWIG wrapper to ABC."
-	$(AS3_COMPILE) -import "$(FLASCC_SDK_N)/usr/lib/builtin.abc" -import "$(FLASCC_SDK_N)/usr/lib/playerglobal.abc" ./flash/Lua.as
+	cd $(FLASCC_SDK_N) && $(AS3_COMPILE) -import "./usr/lib/builtin.abc" -import "./usr/lib/playerglobal.abc" $(CURDIR)/flash/Lua.as
 
 	@echo "-> Compile the wrapper files to link files."
 	$(GCC_COMPILE)  $(CPP_FLAGS_ALL)	-o ./tmp/lflashapi_wrapper.o -I ./include -c ./flash/lflashapi_wrapper.c 
-	"$(FLASCC_SDK)/usr/bin/nm" -f posix ./tmp/lflashapi_wrapper.o | awk '{print $$1}' | sed 's/_//' > ./flash/exports.txt 	
+	$(FLASCC_SDK)/usr/bin/nm -f posix "./tmp/lflashapi_wrapper.o" | awk '{print $$1}' | sed 's/_//' > "./flash/exports.txt" 	
 	
 	@echo "-> Compile the library into a SWC."
 	$(GPP_COMPILE) $(CPP_FLAGS_ALL) ./tmp/lflashapi_wrapper.o ./lib/liblua.a ./flash/Lua.abc -jvmopt="-Xmx2000M" -emit-swc=mxlib.lua -o ./flash/mxliblua.swc
 #
 echo:
+	@echo "SYS :$(OS_PLATFORM)"
 	@echo "GCC :$(GCC_COMPILE)"
 	@echo "G++ :$(GPP_COMPILE)"	
+	@echo "AS3 :$(AS3_COMPILE)"
+	@echo "SWIG:$(SWIG_COMPILE)"	
 	@echo "FLASCC SDK: $(FLASCC_SDK)"
 	@echo "FLEX SDK: $(FLEX_SDK)"
 	@echo "FLASCC SDK N: $(FLASCC_SDK_N)"
+	@echo "CURRENT DIRECTORY: $(CURDIR)"
 #
 clean:
 	@echo "Clean output files"

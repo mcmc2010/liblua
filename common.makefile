@@ -12,7 +12,7 @@ $?OS_PLATFORM 		= X
 
 #
 MAKEFILE_FILENAME		= flash.makefile
-MAKEFILE_PARAMBASE	= FLASCC_SDK="$(FLASCC_SDK)" FLEX_SDK="$(FLEX_SDK)"
+MAKEFILE_PARAMBASE	= OS_PLATFORM="$(OS_PLATFORM)" FLASCC_SDK="$(FLASCC_SDK)" FLEX_SDK="$(FLEX_SDK)"
 MAKEFILE_COMMAND	= X
 
 # 自动变量取当前信息
@@ -21,8 +21,7 @@ $?UNAME 		= $(shell uname -s)
 # 存在不为空
 ifneq (,$(findstring Darwin, $(UNAME))) 
 	OS_PLATFORM = OSX
-endif
-ifneq (,$(findstring CYGWIN, $(UNAME)))
+else ifneq (,$(findstring CYGWIN, $(UNAME)))
 	OS_PLATFORM = CYGWIN
 else
 	OS_PLATFORM = UNKNOW
@@ -33,13 +32,11 @@ endif
 ifneq (,$(findstring UNKNOW, $(OS_PLATFORM))) 
 #	echo "The unknow platform not supported.";
 #	exit 1 ;
-endif
-ifneq (,$(findstring OSX, $(OS_PLATFORM)))
+else ifneq (,$(findstring OSX, $(OS_PLATFORM)))
 	FLASCC_SDK 	:= $(OSX_FLASCC_SDK)
 	FLEX_SDK 	:= $(OSX_FLEX_SDK)
-	MAKEFILE_COMMAND = -f  "$(MAKEFILE_FILENAME)"  $(MAKEFILE_PARAMBASE) 
-endif
-ifneq (,$(findstring CYGWIN, $(OS_PLATFORM)))
+	MAKEFILE_COMMAND = -f  "$(MAKEFILE_FILENAME)"  $(MAKEFILE_PARAMBASE) FLASCC_SDK_N="$(OSX_FLASCC_SDK)"
+else ifneq (,$(findstring CYGWIN, $(OS_PLATFORM)))
 	FLASCC_SDK 	:= $(subst :,,/cygdrive/$(subst \,/,$(CYGWIN_FLASCC_SDK)))
 	FLEX_SDK 	:= $(subst :,,/cygdrive/$(subst \,/,$(CYGWIN_FLEX_SDK)))
 	MAKEFILE_COMMAND = -f "$(MAKEFILE_FILENAME)"  $(MAKEFILE_PARAMBASE) FLASCC_SDK_N="$(CYGWIN_FLASCC_SDK)"
