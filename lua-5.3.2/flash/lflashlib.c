@@ -8,31 +8,14 @@
 ** source other than Adobe, then your use, modification, or distribution of it requires the prior
 ** written permission of Adobe.
 */
-#ifdef SWIG
+// Flash Runtime interop
 
-%module LuaLibModule
+#define lbitlib_c
+#define LUA_LIB
 
-%{
-#include "lua.h"
-#include "lauxlib.h"
-#include "lualib.h"
 #include "AS3/AS3.h"
-
-int 	main() 
-{ 
-	AS3_GoAsync(); 
-}
-
-%}
-
-//%include "lua.h"
-//%include "lauxlib.h"
-//%include "lualib.h"
-
-#else //SWIG
-
 #include "lua.h"
+
 #include "lauxlib.h"
 #include "lualib.h"
 
-#endif //SWIG

@@ -11,8 +11,11 @@ package
 		
 		public function samples()
 		{
+			Lua.luaL_newstate();
 			this._lua_State = new Lua_State();
 			
+			trace(Lua.LUA_VERSION);
+			trace(Lua.LUA_COPYRIGHT);
 		}
 	}
 }
