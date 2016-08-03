@@ -1,0 +1,5 @@
+#ignore dirtectories
+lua-5.3.2/tmp/
+
+#ignore files
+*.abc

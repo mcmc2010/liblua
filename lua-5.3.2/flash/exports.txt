@@ -1,0 +1,2 @@
+avm2_self_unlock
+main

@@ -11,10 +11,6 @@
 # ~/Documents/flash_cpp_sdk/flex/sdk
 
 #
-MAKEFILE_NAME		= flash.makefile
-MAKEFILE_COMMAND	= -f "$(MAKEFILE_NAME)" FLASCC_SDK="$(FLASCC_SDK)" FLEX_SDK="$(FLEX_SDK)"
-
-#
 LUA_VERSION_PATH	= lua-5.3.2
 
 #
