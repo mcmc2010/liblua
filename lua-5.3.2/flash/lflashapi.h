@@ -25,9 +25,9 @@ int 	main()
 
 %}
 
-//%include "lua.h"
-//%include "lauxlib.h"
-//%include "lualib.h"
+%include "lua.h"
+%include "lauxlib.h"
+%include "lualib.h"
 
 #else //SWIG
 
