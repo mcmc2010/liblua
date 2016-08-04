@@ -2,6 +2,15 @@
 # 20160803
 #
 
+#當前項目目錄
+#CYGWIN無法讓java識別路徑，必須轉換爲windows的路徑寫法
+#OSX不需要轉換
+LIBLUA_SOURCE 	= $(CURDIR)
+LIBLUA_SOURCE_N	= $(LIBLUA_SOURCE)
+ifneq (,$(findstring CYGWIN, $(OS_PLATFORM)))
+	LIBLUA_SOURCE_N = $(shell cygpath -w -p $(CURDIR))
+endif
+
 #
 LIBLUA_FILENAME	= liblua.a
 
@@ -50,7 +59,7 @@ flash:compile_cpp copy_include
 	$(SWIG_COMPILE) -DLUA_32BITS -I./include -as3 -module Lua -outdir ./lib -includeall -ignoremissing -o ./flash/lflashapi_wrapper.c ./flash/lflashapi.h
 
 	@echo "-> Compile the SWIG wrapper to ABC."
-	cd $(FLASCC_SDK_N) && $(AS3_COMPILE) -import "./usr/lib/builtin.abc" -import "./usr/lib/playerglobal.abc" $(CURDIR)/flash/Lua.as
+	cd $(FLASCC_SDK) && $(AS3_COMPILE) -import "./usr/lib/builtin.abc" -import "./usr/lib/playerglobal.abc" "$(LIBLUA_SOURCE_N)/flash/Lua.as"
 
 	@echo "-> Compile the wrapper files to link files."
 	$(GCC_COMPILE)  $(CPP_FLAGS_ALL) -o ./tmp/lflashapi_wrapper.o -I ./include -c ./flash/lflashapi_wrapper.c 
@@ -68,7 +77,7 @@ echo:
 	@echo "FLASCC SDK: $(FLASCC_SDK)"
 	@echo "FLEX SDK: $(FLEX_SDK)"
 	@echo "FLASCC SDK N: $(FLASCC_SDK_N)"
-	@echo "CURRENT DIRECTORY: $(CURDIR)"
+	@echo "SOURCE DIRECTORY: $(LIBLUA_SOURCE_N)"
 #
 clean:
 	@echo "Clean output files"
