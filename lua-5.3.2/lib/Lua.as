@@ -700,119 +700,119 @@ public class Lua {
 		return _wrap_lua_ident_get();
 	}
 
-	public static function lua_newstate(f:Function, ud:int):int {
+	public static function lua_newstate(f:Function, ud:int):Number {
 		return _wrap_lua_newstate(f, ud);
 	}
 
-	public static function lua_close(L:int):void {
+	public static function lua_close(L:Number):void {
 		_wrap_lua_close(L);
 	}
 
-	public static function lua_newthread(L:int):int {
+	public static function lua_newthread(L:Number):Number {
 		return _wrap_lua_newthread(L);
 	}
 
-	public static function lua_atpanic(L:int, panicf:Function):Function {
+	public static function lua_atpanic(L:Number, panicf:Function):Function {
 		return _wrap_lua_atpanic(L, panicf);
 	}
 
-	public static function lua_version(L:int):int {
+	public static function lua_version(L:Number):int {
 		return _wrap_lua_version(L);
 	}
 
-	public static function lua_absindex(L:int, idx:int):int {
+	public static function lua_absindex(L:Number, idx:int):int {
 		return _wrap_lua_absindex(L, idx);
 	}
 
-	public static function lua_gettop(L:int):int {
+	public static function lua_gettop(L:Number):int {
 		return _wrap_lua_gettop(L);
 	}
 
-	public static function lua_settop(L:int, idx:int):void {
+	public static function lua_settop(L:Number, idx:int):void {
 		_wrap_lua_settop(L, idx);
 	}
 
-	public static function lua_pushvalue(L:int, idx:int):void {
+	public static function lua_pushvalue(L:Number, idx:int):void {
 		_wrap_lua_pushvalue(L, idx);
 	}
 
-	public static function lua_rotate(L:int, idx:int, n:int):void {
+	public static function lua_rotate(L:Number, idx:int, n:int):void {
 		_wrap_lua_rotate(L, idx, n);
 	}
 
-	public static function lua_copy(L:int, fromidx:int, toidx:int):void {
+	public static function lua_copy(L:Number, fromidx:int, toidx:int):void {
 		_wrap_lua_copy(L, fromidx, toidx);
 	}
 
-	public static function lua_checkstack(L:int, n:int):int {
+	public static function lua_checkstack(L:Number, n:int):int {
 		return _wrap_lua_checkstack(L, n);
 	}
 
-	public static function lua_xmove(from:int, to:int, n:int):void {
+	public static function lua_xmove(from:Number, to:Number, n:int):void {
 		_wrap_lua_xmove(from, to, n);
 	}
 
-	public static function lua_isnumber(L:int, idx:int):int {
+	public static function lua_isnumber(L:Number, idx:int):int {
 		return _wrap_lua_isnumber(L, idx);
 	}
 
-	public static function lua_isstring(L:int, idx:int):int {
+	public static function lua_isstring(L:Number, idx:int):int {
 		return _wrap_lua_isstring(L, idx);
 	}
 
-	public static function lua_iscfunction(L:int, idx:int):int {
+	public static function lua_iscfunction(L:Number, idx:int):int {
 		return _wrap_lua_iscfunction(L, idx);
 	}
 
-	public static function lua_isinteger(L:int, idx:int):int {
+	public static function lua_isinteger(L:Number, idx:int):int {
 		return _wrap_lua_isinteger(L, idx);
 	}
 
-	public static function lua_isuserdata(L:int, idx:int):int {
+	public static function lua_isuserdata(L:Number, idx:int):int {
 		return _wrap_lua_isuserdata(L, idx);
 	}
 
-	public static function lua_type(L:int, idx:int):int {
+	public static function lua_type(L:Number, idx:int):int {
 		return _wrap_lua_type(L, idx);
 	}
 
-	public static function lua_typename(L:int, tp:int):String {
+	public static function lua_typename(L:Number, tp:int):String {
 		return _wrap_lua_typename(L, tp);
 	}
 
-	public static function lua_tonumberx(L:int, idx:int, isnum:int):Number {
+	public static function lua_tonumberx(L:Number, idx:int, isnum:int):Number {
 		return _wrap_lua_tonumberx(L, idx, isnum);
 	}
 
-	public static function lua_tointegerx(L:int, idx:int, isnum:int):int {
+	public static function lua_tointegerx(L:Number, idx:int, isnum:int):int {
 		return _wrap_lua_tointegerx(L, idx, isnum);
 	}
 
-	public static function lua_toboolean(L:int, idx:int):int {
+	public static function lua_toboolean(L:Number, idx:int):int {
 		return _wrap_lua_toboolean(L, idx);
 	}
 
-	public static function lua_tolstring(L:int, idx:int, len:int):String {
+	public static function lua_tolstring(L:Number, idx:int, len:int):String {
 		return _wrap_lua_tolstring(L, idx, len);
 	}
 
-	public static function lua_rawlen(L:int, idx:int):* {
+	public static function lua_rawlen(L:Number, idx:int):* {
 		return _wrap_lua_rawlen(L, idx);
 	}
 
-	public static function lua_tocfunction(L:int, idx:int):Function {
+	public static function lua_tocfunction(L:Number, idx:int):Function {
 		return _wrap_lua_tocfunction(L, idx);
 	}
 
-	public static function lua_touserdata(L:int, idx:int):int {
+	public static function lua_touserdata(L:Number, idx:int):int {
 		return _wrap_lua_touserdata(L, idx);
 	}
 
-	public static function lua_tothread(L:int, idx:int):int {
+	public static function lua_tothread(L:Number, idx:int):Number {
 		return _wrap_lua_tothread(L, idx);
 	}
 
-	public static function lua_topointer(L:int, idx:int):int {
+	public static function lua_topointer(L:Number, idx:int):int {
 		return _wrap_lua_topointer(L, idx);
 	}
 
@@ -872,7 +872,7 @@ public class Lua {
 		return _wrap_LUA_OPBNOT();
 	}
 
-	public static function lua_arith(L:int, op:int):void {
+	public static function lua_arith(L:Number, op:int):void {
 		_wrap_lua_arith(L, op);
 	}
 
@@ -888,167 +888,167 @@ public class Lua {
 		return _wrap_LUA_OPLE();
 	}
 
-	public static function lua_rawequal(L:int, idx1:int, idx2:int):int {
+	public static function lua_rawequal(L:Number, idx1:int, idx2:int):int {
 		return _wrap_lua_rawequal(L, idx1, idx2);
 	}
 
-	public static function lua_compare(L:int, idx1:int, idx2:int, op:int):int {
+	public static function lua_compare(L:Number, idx1:int, idx2:int, op:int):int {
 		return _wrap_lua_compare(L, idx1, idx2, op);
 	}
 
-	public static function lua_pushnil(L:int):void {
+	public static function lua_pushnil(L:Number):void {
 		_wrap_lua_pushnil(L);
 	}
 
-	public static function lua_pushnumber(L:int, n:Number):void {
+	public static function lua_pushnumber(L:Number, n:Number):void {
 		_wrap_lua_pushnumber(L, n);
 	}
 
-	public static function lua_pushinteger(L:int, n:int):void {
+	public static function lua_pushinteger(L:Number, n:int):void {
 		_wrap_lua_pushinteger(L, n);
 	}
 
-	public static function lua_pushlstring(L:int, s:String, len:*):String {
+	public static function lua_pushlstring(L:Number, s:String, len:*):String {
 		return _wrap_lua_pushlstring(L, s, len);
 	}
 
-	public static function lua_pushstring(L:int, s:String):String {
+	public static function lua_pushstring(L:Number, s:String):String {
 		return _wrap_lua_pushstring(L, s);
 	}
 
-	public static function lua_pushvfstring(L:int, fmt:String, argp:*):String {
+	public static function lua_pushvfstring(L:Number, fmt:String, argp:*):String {
 		return _wrap_lua_pushvfstring(L, fmt, argp);
 	}
 
-	public static function lua_pushfstring(L:int, fmt:String, arg3):String {
+	public static function lua_pushfstring(L:Number, fmt:String, arg3):String {
 		return _wrap_lua_pushfstring(L, fmt, arg3);
 	}
 
-	public static function lua_pushcclosure(L:int, fn:Function, n:int):void {
+	public static function lua_pushcclosure(L:Number, fn:Function, n:int):void {
 		_wrap_lua_pushcclosure(L, fn, n);
 	}
 
-	public static function lua_pushboolean(L:int, b:int):void {
+	public static function lua_pushboolean(L:Number, b:int):void {
 		_wrap_lua_pushboolean(L, b);
 	}
 
-	public static function lua_pushlightuserdata(L:int, p:int):void {
+	public static function lua_pushlightuserdata(L:Number, p:int):void {
 		_wrap_lua_pushlightuserdata(L, p);
 	}
 
-	public static function lua_pushthread(L:int):int {
+	public static function lua_pushthread(L:Number):int {
 		return _wrap_lua_pushthread(L);
 	}
 
-	public static function lua_getglobal(L:int, name:String):int {
+	public static function lua_getglobal(L:Number, name:String):int {
 		return _wrap_lua_getglobal(L, name);
 	}
 
-	public static function lua_gettable(L:int, idx:int):int {
+	public static function lua_gettable(L:Number, idx:int):int {
 		return _wrap_lua_gettable(L, idx);
 	}
 
-	public static function lua_getfield(L:int, idx:int, k:String):int {
+	public static function lua_getfield(L:Number, idx:int, k:String):int {
 		return _wrap_lua_getfield(L, idx, k);
 	}
 
-	public static function lua_geti(L:int, idx:int, n:int):int {
+	public static function lua_geti(L:Number, idx:int, n:int):int {
 		return _wrap_lua_geti(L, idx, n);
 	}
 
-	public static function lua_rawget(L:int, idx:int):int {
+	public static function lua_rawget(L:Number, idx:int):int {
 		return _wrap_lua_rawget(L, idx);
 	}
 
-	public static function lua_rawgeti(L:int, idx:int, n:int):int {
+	public static function lua_rawgeti(L:Number, idx:int, n:int):int {
 		return _wrap_lua_rawgeti(L, idx, n);
 	}
 
-	public static function lua_rawgetp(L:int, idx:int, p:int):int {
+	public static function lua_rawgetp(L:Number, idx:int, p:int):int {
 		return _wrap_lua_rawgetp(L, idx, p);
 	}
 
-	public static function lua_createtable(L:int, narr:int, nrec:int):void {
+	public static function lua_createtable(L:Number, narr:int, nrec:int):void {
 		_wrap_lua_createtable(L, narr, nrec);
 	}
 
-	public static function lua_newuserdata(L:int, sz:*):int {
+	public static function lua_newuserdata(L:Number, sz:*):int {
 		return _wrap_lua_newuserdata(L, sz);
 	}
 
-	public static function lua_getmetatable(L:int, objindex:int):int {
+	public static function lua_getmetatable(L:Number, objindex:int):int {
 		return _wrap_lua_getmetatable(L, objindex);
 	}
 
-	public static function lua_getuservalue(L:int, idx:int):int {
+	public static function lua_getuservalue(L:Number, idx:int):int {
 		return _wrap_lua_getuservalue(L, idx);
 	}
 
-	public static function lua_setglobal(L:int, name:String):void {
+	public static function lua_setglobal(L:Number, name:String):void {
 		_wrap_lua_setglobal(L, name);
 	}
 
-	public static function lua_settable(L:int, idx:int):void {
+	public static function lua_settable(L:Number, idx:int):void {
 		_wrap_lua_settable(L, idx);
 	}
 
-	public static function lua_setfield(L:int, idx:int, k:String):void {
+	public static function lua_setfield(L:Number, idx:int, k:String):void {
 		_wrap_lua_setfield(L, idx, k);
 	}
 
-	public static function lua_seti(L:int, idx:int, n:int):void {
+	public static function lua_seti(L:Number, idx:int, n:int):void {
 		_wrap_lua_seti(L, idx, n);
 	}
 
-	public static function lua_rawset(L:int, idx:int):void {
+	public static function lua_rawset(L:Number, idx:int):void {
 		_wrap_lua_rawset(L, idx);
 	}
 
-	public static function lua_rawseti(L:int, idx:int, n:int):void {
+	public static function lua_rawseti(L:Number, idx:int, n:int):void {
 		_wrap_lua_rawseti(L, idx, n);
 	}
 
-	public static function lua_rawsetp(L:int, idx:int, p:int):void {
+	public static function lua_rawsetp(L:Number, idx:int, p:int):void {
 		_wrap_lua_rawsetp(L, idx, p);
 	}
 
-	public static function lua_setmetatable(L:int, objindex:int):int {
+	public static function lua_setmetatable(L:Number, objindex:int):int {
 		return _wrap_lua_setmetatable(L, objindex);
 	}
 
-	public static function lua_setuservalue(L:int, idx:int):void {
+	public static function lua_setuservalue(L:Number, idx:int):void {
 		_wrap_lua_setuservalue(L, idx);
 	}
 
-	public static function lua_callk(L:int, nargs:int, nresults:int, ctx:*):void {
+	public static function lua_callk(L:Number, nargs:int, nresults:int, ctx:*):void {
 		_wrap_lua_callk(L, nargs, nresults, ctx);
 	}
 
-	public static function lua_pcallk(L:int, nargs:int, nresults:int, errfunc:int, ctx:*):int {
+	public static function lua_pcallk(L:Number, nargs:int, nresults:int, errfunc:int, ctx:*):int {
 		return _wrap_lua_pcallk(L, nargs, nresults, errfunc, ctx);
 	}
 
-	public static function lua_load(L:int, reader:Function, dt:int, chunkname:String, mode:String):int {
+	public static function lua_load(L:Number, reader:Function, dt:int, chunkname:String, mode:String):int {
 		return _wrap_lua_load(L, reader, dt, chunkname, mode);
 	}
 
-	public static function lua_dump(L:int, writer:Function, data:int, strip:int):int {
+	public static function lua_dump(L:Number, writer:Function, data:int, strip:int):int {
 		return _wrap_lua_dump(L, writer, data, strip);
 	}
 
-	public static function lua_yieldk(L:int, nresults:int, ctx:*):int {
+	public static function lua_yieldk(L:Number, nresults:int, ctx:*):int {
 		return _wrap_lua_yieldk(L, nresults, ctx);
 	}
 
-	public static function lua_resume(L:int, from:int, narg:int):int {
+	public static function lua_resume(L:Number, from:Number, narg:int):int {
 		return _wrap_lua_resume(L, from, narg);
 	}
 
-	public static function lua_status(L:int):int {
+	public static function lua_status(L:Number):int {
 		return _wrap_lua_status(L);
 	}
 
-	public static function lua_isyieldable(L:int):int {
+	public static function lua_isyieldable(L:Number):int {
 		return _wrap_lua_isyieldable(L);
 	}
 
@@ -1088,35 +1088,35 @@ public class Lua {
 		return _wrap_LUA_GCISRUNNING();
 	}
 
-	public static function lua_gc(L:int, what:int, data:int):int {
+	public static function lua_gc(L:Number, what:int, data:int):int {
 		return _wrap_lua_gc(L, what, data);
 	}
 
-	public static function lua_error(L:int):int {
+	public static function lua_error(L:Number):int {
 		return _wrap_lua_error(L);
 	}
 
-	public static function lua_next(L:int, idx:int):int {
+	public static function lua_next(L:Number, idx:int):int {
 		return _wrap_lua_next(L, idx);
 	}
 
-	public static function lua_concat(L:int, n:int):void {
+	public static function lua_concat(L:Number, n:int):void {
 		_wrap_lua_concat(L, n);
 	}
 
-	public static function lua_len(L:int, idx:int):void {
+	public static function lua_len(L:Number, idx:int):void {
 		_wrap_lua_len(L, idx);
 	}
 
-	public static function lua_stringtonumber(L:int, s:String):* {
+	public static function lua_stringtonumber(L:Number, s:String):* {
 		return _wrap_lua_stringtonumber(L, s);
 	}
 
-	public static function lua_getallocf(L:int, ud:int):Function {
+	public static function lua_getallocf(L:Number, ud:int):Function {
 		return _wrap_lua_getallocf(L, ud);
 	}
 
-	public static function lua_setallocf(L:int, f:Function, ud:int):void {
+	public static function lua_setallocf(L:Number, f:Function, ud:int):void {
 		_wrap_lua_setallocf(L, f, ud);
 	}
 
@@ -1156,51 +1156,51 @@ public class Lua {
 		return _wrap_LUA_MASKCOUNT();
 	}
 
-	public static function lua_getstack(L:int, level:int, ar:int):int {
+	public static function lua_getstack(L:Number, level:int, ar:int):int {
 		return _wrap_lua_getstack(L, level, ar);
 	}
 
-	public static function lua_getinfo(L:int, what:String, ar:int):int {
+	public static function lua_getinfo(L:Number, what:String, ar:int):int {
 		return _wrap_lua_getinfo(L, what, ar);
 	}
 
-	public static function lua_getlocal(L:int, ar:int, n:int):String {
+	public static function lua_getlocal(L:Number, ar:int, n:int):String {
 		return _wrap_lua_getlocal(L, ar, n);
 	}
 
-	public static function lua_setlocal(L:int, ar:int, n:int):String {
+	public static function lua_setlocal(L:Number, ar:int, n:int):String {
 		return _wrap_lua_setlocal(L, ar, n);
 	}
 
-	public static function lua_getupvalue(L:int, funcindex:int, n:int):String {
+	public static function lua_getupvalue(L:Number, funcindex:int, n:int):String {
 		return _wrap_lua_getupvalue(L, funcindex, n);
 	}
 
-	public static function lua_setupvalue(L:int, funcindex:int, n:int):String {
+	public static function lua_setupvalue(L:Number, funcindex:int, n:int):String {
 		return _wrap_lua_setupvalue(L, funcindex, n);
 	}
 
-	public static function lua_upvalueid(L:int, fidx:int, n:int):int {
+	public static function lua_upvalueid(L:Number, fidx:int, n:int):int {
 		return _wrap_lua_upvalueid(L, fidx, n);
 	}
 
-	public static function lua_upvaluejoin(L:int, fidx1:int, n1:int, fidx2:int, n2:int):void {
+	public static function lua_upvaluejoin(L:Number, fidx1:int, n1:int, fidx2:int, n2:int):void {
 		_wrap_lua_upvaluejoin(L, fidx1, n1, fidx2, n2);
 	}
 
-	public static function lua_sethook(L:int, func:Function, mask:int, count:int):void {
+	public static function lua_sethook(L:Number, func:Function, mask:int, count:int):void {
 		_wrap_lua_sethook(L, func, mask, count);
 	}
 
-	public static function lua_gethook(L:int):Function {
+	public static function lua_gethook(L:Number):Function {
 		return _wrap_lua_gethook(L);
 	}
 
-	public static function lua_gethookmask(L:int):int {
+	public static function lua_gethookmask(L:Number):int {
 		return _wrap_lua_gethookmask(L);
 	}
 
-	public static function lua_gethookcount(L:int):int {
+	public static function lua_gethookcount(L:Number):int {
 		return _wrap_lua_gethookcount(L);
 	}
 
@@ -1208,95 +1208,95 @@ public class Lua {
 		return _wrap_LUA_ERRFILE();
 	}
 
-	public static function luaL_checkversion_(L:int, ver:Number, sz:*):void {
+	public static function luaL_checkversion_(L:Number, ver:Number, sz:*):void {
 		_wrap_luaL_checkversion_(L, ver, sz);
 	}
 
-	public static function luaL_getmetafield(L:int, obj:int, e:String):int {
+	public static function luaL_getmetafield(L:Number, obj:int, e:String):int {
 		return _wrap_luaL_getmetafield(L, obj, e);
 	}
 
-	public static function luaL_callmeta(L:int, obj:int, e:String):int {
+	public static function luaL_callmeta(L:Number, obj:int, e:String):int {
 		return _wrap_luaL_callmeta(L, obj, e);
 	}
 
-	public static function luaL_tolstring(L:int, idx:int, len:int):String {
+	public static function luaL_tolstring(L:Number, idx:int, len:int):String {
 		return _wrap_luaL_tolstring(L, idx, len);
 	}
 
-	public static function luaL_argerror(L:int, arg:int, extramsg:String):int {
+	public static function luaL_argerror(L:Number, arg:int, extramsg:String):int {
 		return _wrap_luaL_argerror(L, arg, extramsg);
 	}
 
-	public static function luaL_checklstring(L:int, arg:int, l:int):String {
+	public static function luaL_checklstring(L:Number, arg:int, l:int):String {
 		return _wrap_luaL_checklstring(L, arg, l);
 	}
 
-	public static function luaL_optlstring(L:int, arg:int, def:String, l:int):String {
+	public static function luaL_optlstring(L:Number, arg:int, def:String, l:int):String {
 		return _wrap_luaL_optlstring(L, arg, def, l);
 	}
 
-	public static function luaL_checknumber(L:int, arg:int):Number {
+	public static function luaL_checknumber(L:Number, arg:int):Number {
 		return _wrap_luaL_checknumber(L, arg);
 	}
 
-	public static function luaL_optnumber(L:int, arg:int, def:Number):Number {
+	public static function luaL_optnumber(L:Number, arg:int, def:Number):Number {
 		return _wrap_luaL_optnumber(L, arg, def);
 	}
 
-	public static function luaL_checkinteger(L:int, arg:int):int {
+	public static function luaL_checkinteger(L:Number, arg:int):int {
 		return _wrap_luaL_checkinteger(L, arg);
 	}
 
-	public static function luaL_optinteger(L:int, arg:int, def:int):int {
+	public static function luaL_optinteger(L:Number, arg:int, def:int):int {
 		return _wrap_luaL_optinteger(L, arg, def);
 	}
 
-	public static function luaL_checkstack(L:int, sz:int, msg:String):void {
+	public static function luaL_checkstack(L:Number, sz:int, msg:String):void {
 		_wrap_luaL_checkstack(L, sz, msg);
 	}
 
-	public static function luaL_checktype(L:int, arg:int, t:int):void {
+	public static function luaL_checktype(L:Number, arg:int, t:int):void {
 		_wrap_luaL_checktype(L, arg, t);
 	}
 
-	public static function luaL_checkany(L:int, arg:int):void {
+	public static function luaL_checkany(L:Number, arg:int):void {
 		_wrap_luaL_checkany(L, arg);
 	}
 
-	public static function luaL_newmetatable(L:int, tname:String):int {
+	public static function luaL_newmetatable(L:Number, tname:String):int {
 		return _wrap_luaL_newmetatable(L, tname);
 	}
 
-	public static function luaL_setmetatable(L:int, tname:String):void {
+	public static function luaL_setmetatable(L:Number, tname:String):void {
 		_wrap_luaL_setmetatable(L, tname);
 	}
 
-	public static function luaL_testudata(L:int, ud:int, tname:String):int {
+	public static function luaL_testudata(L:Number, ud:int, tname:String):int {
 		return _wrap_luaL_testudata(L, ud, tname);
 	}
 
-	public static function luaL_checkudata(L:int, ud:int, tname:String):int {
+	public static function luaL_checkudata(L:Number, ud:int, tname:String):int {
 		return _wrap_luaL_checkudata(L, ud, tname);
 	}
 
-	public static function luaL_where(L:int, lvl:int):void {
+	public static function luaL_where(L:Number, lvl:int):void {
 		_wrap_luaL_where(L, lvl);
 	}
 
-	public static function luaL_error(L:int, fmt:String, arg3):int {
+	public static function luaL_error(L:Number, fmt:String, arg3):int {
 		return _wrap_luaL_error(L, fmt, arg3);
 	}
 
-	public static function luaL_checkoption(L:int, arg:int, def:String, lst:int):int {
+	public static function luaL_checkoption(L:Number, arg:int, def:String, lst:int):int {
 		return _wrap_luaL_checkoption(L, arg, def, lst);
 	}
 
-	public static function luaL_fileresult(L:int, stat:int, fname:String):int {
+	public static function luaL_fileresult(L:Number, stat:int, fname:String):int {
 		return _wrap_luaL_fileresult(L, stat, fname);
 	}
 
-	public static function luaL_execresult(L:int, stat:int):int {
+	public static function luaL_execresult(L:Number, stat:int):int {
 		return _wrap_luaL_execresult(L, stat);
 	}
 
@@ -1308,55 +1308,55 @@ public class Lua {
 		return _wrap_LUA_REFNIL();
 	}
 
-	public static function luaL_ref(L:int, t:int):int {
+	public static function luaL_ref(L:Number, t:int):int {
 		return _wrap_luaL_ref(L, t);
 	}
 
-	public static function luaL_unref(L:int, t:int, ref:int):void {
+	public static function luaL_unref(L:Number, t:int, ref:int):void {
 		_wrap_luaL_unref(L, t, ref);
 	}
 
-	public static function luaL_loadfilex(L:int, filename:String, mode:String):int {
+	public static function luaL_loadfilex(L:Number, filename:String, mode:String):int {
 		return _wrap_luaL_loadfilex(L, filename, mode);
 	}
 
-	public static function luaL_loadbufferx(L:int, buff:String, sz:*):int {
+	public static function luaL_loadbufferx(L:Number, buff:String, sz:*):int {
 		return _wrap_luaL_loadbufferx(L, buff, sz);
 	}
 
-	public static function luaL_loadstring(L:int, s:String):int {
+	public static function luaL_loadstring(L:Number, s:String):int {
 		return _wrap_luaL_loadstring(L, s);
 	}
 
-	public static function luaL_newstate():int {
+	public static function luaL_newstate():Number {
 		return _wrap_luaL_newstate();
 	}
 
-	public static function luaL_len(L:int, idx:int):int {
+	public static function luaL_len(L:Number, idx:int):int {
 		return _wrap_luaL_len(L, idx);
 	}
 
-	public static function luaL_gsub(L:int, s:String, p:String, r:String):String {
+	public static function luaL_gsub(L:Number, s:String, p:String, r:String):String {
 		return _wrap_luaL_gsub(L, s, p, r);
 	}
 
-	public static function luaL_setfuncs(L:int, l:int, nup:int):void {
+	public static function luaL_setfuncs(L:Number, l:int, nup:int):void {
 		_wrap_luaL_setfuncs(L, l, nup);
 	}
 
-	public static function luaL_getsubtable(L:int, idx:int, fname:String):int {
+	public static function luaL_getsubtable(L:Number, idx:int, fname:String):int {
 		return _wrap_luaL_getsubtable(L, idx, fname);
 	}
 
-	public static function luaL_traceback(L:int, L1:int, msg:String, level:int):void {
+	public static function luaL_traceback(L:Number, L1:Number, msg:String, level:int):void {
 		_wrap_luaL_traceback(L, L1, msg, level);
 	}
 
-	public static function luaL_requiref(L:int, modname:String, openf:Function, glb:int):void {
+	public static function luaL_requiref(L:Number, modname:String, openf:Function, glb:int):void {
 		_wrap_luaL_requiref(L, modname, openf, glb);
 	}
 
-	public static function luaL_buffinit(L:int, B:int):void {
+	public static function luaL_buffinit(L:Number, B:int):void {
 		_wrap_luaL_buffinit(L, B);
 	}
 
@@ -1384,7 +1384,7 @@ public class Lua {
 		_wrap_luaL_pushresultsize(B, sz);
 	}
 
-	public static function luaL_buffinitsize(L:int, B:int, sz:*):String {
+	public static function luaL_buffinitsize(L:Number, B:int, sz:*):String {
 		return _wrap_luaL_buffinitsize(L, B, sz);
 	}
 
@@ -1392,7 +1392,7 @@ public class Lua {
 		return _wrap_LUA_FILEHANDLE();
 	}
 
-	public static function luaopen_base(L:int):int {
+	public static function luaopen_base(L:Number):int {
 		return _wrap_luaopen_base(L);
 	}
 
@@ -1400,7 +1400,7 @@ public class Lua {
 		return _wrap_LUA_COLIBNAME();
 	}
 
-	public static function luaopen_coroutine(L:int):int {
+	public static function luaopen_coroutine(L:Number):int {
 		return _wrap_luaopen_coroutine(L);
 	}
 
@@ -1408,7 +1408,7 @@ public class Lua {
 		return _wrap_LUA_TABLIBNAME();
 	}
 
-	public static function luaopen_table(L:int):int {
+	public static function luaopen_table(L:Number):int {
 		return _wrap_luaopen_table(L);
 	}
 
@@ -1416,7 +1416,7 @@ public class Lua {
 		return _wrap_LUA_IOLIBNAME();
 	}
 
-	public static function luaopen_io(L:int):int {
+	public static function luaopen_io(L:Number):int {
 		return _wrap_luaopen_io(L);
 	}
 
@@ -1424,7 +1424,7 @@ public class Lua {
 		return _wrap_LUA_OSLIBNAME();
 	}
 
-	public static function luaopen_os(L:int):int {
+	public static function luaopen_os(L:Number):int {
 		return _wrap_luaopen_os(L);
 	}
 
@@ -1432,7 +1432,7 @@ public class Lua {
 		return _wrap_LUA_STRLIBNAME();
 	}
 
-	public static function luaopen_string(L:int):int {
+	public static function luaopen_string(L:Number):int {
 		return _wrap_luaopen_string(L);
 	}
 
@@ -1440,7 +1440,7 @@ public class Lua {
 		return _wrap_LUA_UTF8LIBNAME();
 	}
 
-	public static function luaopen_utf8(L:int):int {
+	public static function luaopen_utf8(L:Number):int {
 		return _wrap_luaopen_utf8(L);
 	}
 
@@ -1448,7 +1448,7 @@ public class Lua {
 		return _wrap_LUA_BITLIBNAME();
 	}
 
-	public static function luaopen_bit32(L:int):int {
+	public static function luaopen_bit32(L:Number):int {
 		return _wrap_luaopen_bit32(L);
 	}
 
@@ -1456,7 +1456,7 @@ public class Lua {
 		return _wrap_LUA_MATHLIBNAME();
 	}
 
-	public static function luaopen_math(L:int):int {
+	public static function luaopen_math(L:Number):int {
 		return _wrap_luaopen_math(L);
 	}
 
@@ -1464,7 +1464,7 @@ public class Lua {
 		return _wrap_LUA_DBLIBNAME();
 	}
 
-	public static function luaopen_debug(L:int):int {
+	public static function luaopen_debug(L:Number):int {
 		return _wrap_luaopen_debug(L);
 	}
 
@@ -1472,11 +1472,11 @@ public class Lua {
 		return _wrap_LUA_LOADLIBNAME();
 	}
 
-	public static function luaopen_package(L:int):int {
+	public static function luaopen_package(L:Number):int {
 		return _wrap_luaopen_package(L);
 	}
 
-	public static function luaL_openlibs(L:int):void {
+	public static function luaL_openlibs(L:Number):void {
 		_wrap_luaL_openlibs(L);
 	}
 

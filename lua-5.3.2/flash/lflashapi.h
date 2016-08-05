@@ -12,6 +12,18 @@
 
 %module LuaLibModule
 
+//將lua的狀態機指針，轉換成NUMBER存放，按8字節來處理
+%typemap(astype) 	lua_State* 	"Number";
+%typemap(in) 		lua_State* 	
+{ 
+	AS3_GetScalarFromVar($1, $input); 
+}
+%typemap(out) 	lua_State*
+{
+    AS3_DeclareVar($result, Number);
+    AS3_CopyScalarToVar($result, $1);
+}
+
 %{
 #include "lua.h"
 #include "lauxlib.h"
@@ -31,6 +43,7 @@ int 	main()
 
 #else //SWIG
 
+#define  SWIGPP
 #include "lua.h"
 #include "lauxlib.h"
 #include "lualib.h"

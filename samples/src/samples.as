@@ -10,12 +10,14 @@ package
 		private var _lua_State:Lua_State;
 		
 		public function samples()
-		{
-			Lua.luaL_newstate();
-			this._lua_State = new Lua_State();
+		{			
+			this._lua_State = new Lua_State(true);
 			
 			trace(Lua.LUA_VERSION);
 			trace(Lua.LUA_COPYRIGHT);
+			
+			this._lua_State.dispose();
+			this._lua_State = null;
 		}
 	}
 }

@@ -980,7 +980,7 @@ void *_wrap_lua_newstate_f_func_ptr (void *arg1, void *arg2, size_t arg3, size_t
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_newstate(f:Function, ud:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_newstate(f:Function, ud:int):Number")))
 void _wrap_lua_newstate() {
   lua_Alloc arg1 = (lua_Alloc) 0 ;
   void *arg2 = (void *) 0 ;
@@ -1004,7 +1004,7 @@ void _wrap_lua_newstate() {
   }
   result = (lua_State *)lua_newstate(arg1,arg2);
   {
-    AS3_DeclareVar(asresult, int);
+    AS3_DeclareVar(asresult, Number);
     AS3_CopyScalarToVar(asresult, result);
   }
   {
@@ -1013,12 +1013,12 @@ void _wrap_lua_newstate() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_close(L:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_close(L:Number):void")))
 void _wrap_lua_close() {
   lua_State *arg1 = (lua_State *) 0 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   lua_close(arg1);
   {
@@ -1030,17 +1030,17 @@ void _wrap_lua_close() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_newthread(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_newthread(L:Number):Number")))
 void _wrap_lua_newthread() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_State *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (lua_State *)lua_newthread(arg1);
   {
-    AS3_DeclareVar(asresult, int);
+    AS3_DeclareVar(asresult, Number);
     AS3_CopyScalarToVar(asresult, result);
   }
   {
@@ -1086,14 +1086,14 @@ void _wrap_lua_atpanic_lua_atpanic_Function() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_atpanic(L:int, panicf:Function):Function")))
+__attribute__((annotate("as3sig:public function _wrap_lua_atpanic(L:Number, panicf:Function):Function")))
 void _wrap_lua_atpanic() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_CFunction arg2 = (lua_CFunction) 0 ;
   lua_CFunction result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     swig_as3(
@@ -1129,13 +1129,13 @@ void _wrap_lua_atpanic() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_version(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_version(L:Number):int")))
 void _wrap_lua_version() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_Number *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (lua_Number *)lua_version(arg1);
   {
@@ -1148,14 +1148,14 @@ void _wrap_lua_version() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_absindex(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_absindex(L:Number, idx:int):int")))
 void _wrap_lua_absindex() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1171,13 +1171,13 @@ void _wrap_lua_absindex() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_gettop(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_gettop(L:Number):int")))
 void _wrap_lua_gettop() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)lua_gettop(arg1);
   {
@@ -1190,13 +1190,13 @@ void _wrap_lua_gettop() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_settop(L:int, idx:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_settop(L:Number, idx:int):void")))
 void _wrap_lua_settop() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1211,13 +1211,13 @@ void _wrap_lua_settop() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_pushvalue(L:int, idx:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_pushvalue(L:Number, idx:int):void")))
 void _wrap_lua_pushvalue() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1232,14 +1232,14 @@ void _wrap_lua_pushvalue() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_rotate(L:int, idx:int, n:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_rotate(L:Number, idx:int, n:int):void")))
 void _wrap_lua_rotate() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int arg3 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1257,14 +1257,14 @@ void _wrap_lua_rotate() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_copy(L:int, fromidx:int, toidx:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_copy(L:Number, fromidx:int, toidx:int):void")))
 void _wrap_lua_copy() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int arg3 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, fromidx);
@@ -1282,14 +1282,14 @@ void _wrap_lua_copy() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_checkstack(L:int, n:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_checkstack(L:Number, n:int):int")))
 void _wrap_lua_checkstack() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, n);
@@ -1305,17 +1305,17 @@ void _wrap_lua_checkstack() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_xmove(from:int, to:int, n:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_xmove(from:Number, to:Number, n:int):void")))
 void _wrap_lua_xmove() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_State *arg2 = (lua_State *) 0 ;
   int arg3 ;
   
   {
-    AS3_GetScalarFromVar(arg1, from);
+    AS3_GetScalarFromVar(arg1, from); 
   }
   {
-    AS3_GetScalarFromVar(arg2, to);
+    AS3_GetScalarFromVar(arg2, to); 
   }
   {
     AS3_GetScalarFromVar(arg3, n);
@@ -1330,14 +1330,14 @@ void _wrap_lua_xmove() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_isnumber(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_isnumber(L:Number, idx:int):int")))
 void _wrap_lua_isnumber() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1353,14 +1353,14 @@ void _wrap_lua_isnumber() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_isstring(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_isstring(L:Number, idx:int):int")))
 void _wrap_lua_isstring() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1376,14 +1376,14 @@ void _wrap_lua_isstring() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_iscfunction(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_iscfunction(L:Number, idx:int):int")))
 void _wrap_lua_iscfunction() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1399,14 +1399,14 @@ void _wrap_lua_iscfunction() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_isinteger(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_isinteger(L:Number, idx:int):int")))
 void _wrap_lua_isinteger() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1422,14 +1422,14 @@ void _wrap_lua_isinteger() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_isuserdata(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_isuserdata(L:Number, idx:int):int")))
 void _wrap_lua_isuserdata() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1445,14 +1445,14 @@ void _wrap_lua_isuserdata() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_type(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_type(L:Number, idx:int):int")))
 void _wrap_lua_type() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1468,14 +1468,14 @@ void _wrap_lua_type() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_typename(L:int, tp:int):String")))
+__attribute__((annotate("as3sig:public function _wrap_lua_typename(L:Number, tp:int):String")))
 void _wrap_lua_typename() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   char *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, tp);
@@ -1492,7 +1492,7 @@ void _wrap_lua_typename() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_tonumberx(L:int, idx:int, isnum:int):Number")))
+__attribute__((annotate("as3sig:public function _wrap_lua_tonumberx(L:Number, idx:int, isnum:int):Number")))
 void _wrap_lua_tonumberx() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -1500,7 +1500,7 @@ void _wrap_lua_tonumberx() {
   lua_Number result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1519,7 +1519,7 @@ void _wrap_lua_tonumberx() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_tointegerx(L:int, idx:int, isnum:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_tointegerx(L:Number, idx:int, isnum:int):int")))
 void _wrap_lua_tointegerx() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -1527,7 +1527,7 @@ void _wrap_lua_tointegerx() {
   lua_Integer result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1546,14 +1546,14 @@ void _wrap_lua_tointegerx() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_toboolean(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_toboolean(L:Number, idx:int):int")))
 void _wrap_lua_toboolean() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1569,7 +1569,7 @@ void _wrap_lua_toboolean() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_tolstring(L:int, idx:int, len:int):String")))
+__attribute__((annotate("as3sig:public function _wrap_lua_tolstring(L:Number, idx:int, len:int):String")))
 void _wrap_lua_tolstring() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -1577,7 +1577,7 @@ void _wrap_lua_tolstring() {
   char *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1597,14 +1597,14 @@ void _wrap_lua_tolstring() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_rawlen(L:int, idx:int):*")))
+__attribute__((annotate("as3sig:public function _wrap_lua_rawlen(L:Number, idx:int):*")))
 void _wrap_lua_rawlen() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   size_t result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1647,14 +1647,14 @@ void _wrap_lua_tocfunction_lua_tocfunction_Function() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_tocfunction(L:int, idx:int):Function")))
+__attribute__((annotate("as3sig:public function _wrap_lua_tocfunction(L:Number, idx:int):Function")))
 void _wrap_lua_tocfunction() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   lua_CFunction result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1680,14 +1680,14 @@ void _wrap_lua_tocfunction() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_touserdata(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_touserdata(L:Number, idx:int):int")))
 void _wrap_lua_touserdata() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   void *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1703,21 +1703,21 @@ void _wrap_lua_touserdata() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_tothread(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_tothread(L:Number, idx:int):Number")))
 void _wrap_lua_tothread() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   lua_State *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
   }
   result = (lua_State *)lua_tothread(arg1,arg2);
   {
-    AS3_DeclareVar(asresult, int);
+    AS3_DeclareVar(asresult, Number);
     AS3_CopyScalarToVar(asresult, result);
   }
   {
@@ -1726,14 +1726,14 @@ void _wrap_lua_tothread() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_topointer(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_topointer(L:Number, idx:int):int")))
 void _wrap_lua_topointer() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   void *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -1959,13 +1959,13 @@ void _wrap_LUA_OPBNOT() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_arith(L:int, op:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_arith(L:Number, op:int):void")))
 void _wrap_lua_arith() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, op);
@@ -2025,7 +2025,7 @@ void _wrap_LUA_OPLE() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_rawequal(L:int, idx1:int, idx2:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_rawequal(L:Number, idx1:int, idx2:int):int")))
 void _wrap_lua_rawequal() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -2033,7 +2033,7 @@ void _wrap_lua_rawequal() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx1);
@@ -2052,7 +2052,7 @@ void _wrap_lua_rawequal() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_compare(L:int, idx1:int, idx2:int, op:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_compare(L:Number, idx1:int, idx2:int, op:int):int")))
 void _wrap_lua_compare() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -2061,7 +2061,7 @@ void _wrap_lua_compare() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx1);
@@ -2083,12 +2083,12 @@ void _wrap_lua_compare() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_pushnil(L:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_pushnil(L:Number):void")))
 void _wrap_lua_pushnil() {
   lua_State *arg1 = (lua_State *) 0 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   lua_pushnil(arg1);
   {
@@ -2100,13 +2100,13 @@ void _wrap_lua_pushnil() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_pushnumber(L:int, n:Number):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_pushnumber(L:Number, n:Number):void")))
 void _wrap_lua_pushnumber() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_Number arg2 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, n);
@@ -2121,13 +2121,13 @@ void _wrap_lua_pushnumber() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_pushinteger(L:int, n:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_pushinteger(L:Number, n:int):void")))
 void _wrap_lua_pushinteger() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_Integer arg2 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, n);
@@ -2142,7 +2142,7 @@ void _wrap_lua_pushinteger() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_pushlstring(L:int, s:String, len:*):String")))
+__attribute__((annotate("as3sig:public function _wrap_lua_pushlstring(L:Number, s:String, len:*):String")))
 void _wrap_lua_pushlstring() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -2150,7 +2150,7 @@ void _wrap_lua_pushlstring() {
   char *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, s);
@@ -2171,14 +2171,14 @@ void _wrap_lua_pushlstring() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_pushstring(L:int, s:String):String")))
+__attribute__((annotate("as3sig:public function _wrap_lua_pushstring(L:Number, s:String):String")))
 void _wrap_lua_pushstring() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
   char *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, s);
@@ -2198,7 +2198,7 @@ void _wrap_lua_pushstring() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_pushvfstring(L:int, fmt:String, argp:*):String")))
+__attribute__((annotate("as3sig:public function _wrap_lua_pushvfstring(L:Number, fmt:String, argp:*):String")))
 void _wrap_lua_pushvfstring() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -2206,7 +2206,7 @@ void _wrap_lua_pushvfstring() {
   char *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, fmt);
@@ -2227,7 +2227,7 @@ void _wrap_lua_pushvfstring() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_pushfstring(L:int, fmt:String, arg3):String")))
+__attribute__((annotate("as3sig:public function _wrap_lua_pushfstring(L:Number, fmt:String, arg3):String")))
 void _wrap_lua_pushfstring() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -2235,7 +2235,7 @@ void _wrap_lua_pushfstring() {
   char *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, fmt);
@@ -2274,14 +2274,14 @@ int _wrap_lua_pushcclosure_fn_func_ptr (struct lua_State *arg1) {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_pushcclosure(L:int, fn:Function, n:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_pushcclosure(L:Number, fn:Function, n:int):void")))
 void _wrap_lua_pushcclosure() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_CFunction arg2 = (lua_CFunction) 0 ;
   int arg3 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     swig_as3(
@@ -2309,13 +2309,13 @@ void _wrap_lua_pushcclosure() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_pushboolean(L:int, b:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_pushboolean(L:Number, b:int):void")))
 void _wrap_lua_pushboolean() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, b);
@@ -2330,13 +2330,13 @@ void _wrap_lua_pushboolean() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_pushlightuserdata(L:int, p:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_pushlightuserdata(L:Number, p:int):void")))
 void _wrap_lua_pushlightuserdata() {
   lua_State *arg1 = (lua_State *) 0 ;
   void *arg2 = (void *) 0 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, p);
@@ -2351,13 +2351,13 @@ void _wrap_lua_pushlightuserdata() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_pushthread(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_pushthread(L:Number):int")))
 void _wrap_lua_pushthread() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)lua_pushthread(arg1);
   {
@@ -2370,14 +2370,14 @@ void _wrap_lua_pushthread() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_getglobal(L:int, name:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_getglobal(L:Number, name:String):int")))
 void _wrap_lua_getglobal() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, name);
@@ -2396,14 +2396,14 @@ void _wrap_lua_getglobal() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_gettable(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_gettable(L:Number, idx:int):int")))
 void _wrap_lua_gettable() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -2419,7 +2419,7 @@ void _wrap_lua_gettable() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_getfield(L:int, idx:int, k:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_getfield(L:Number, idx:int, k:String):int")))
 void _wrap_lua_getfield() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -2427,7 +2427,7 @@ void _wrap_lua_getfield() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -2449,7 +2449,7 @@ void _wrap_lua_getfield() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_geti(L:int, idx:int, n:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_geti(L:Number, idx:int, n:int):int")))
 void _wrap_lua_geti() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -2457,7 +2457,7 @@ void _wrap_lua_geti() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -2476,14 +2476,14 @@ void _wrap_lua_geti() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_rawget(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_rawget(L:Number, idx:int):int")))
 void _wrap_lua_rawget() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -2499,7 +2499,7 @@ void _wrap_lua_rawget() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_rawgeti(L:int, idx:int, n:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_rawgeti(L:Number, idx:int, n:int):int")))
 void _wrap_lua_rawgeti() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -2507,7 +2507,7 @@ void _wrap_lua_rawgeti() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -2526,7 +2526,7 @@ void _wrap_lua_rawgeti() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_rawgetp(L:int, idx:int, p:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_rawgetp(L:Number, idx:int, p:int):int")))
 void _wrap_lua_rawgetp() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -2534,7 +2534,7 @@ void _wrap_lua_rawgetp() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -2553,14 +2553,14 @@ void _wrap_lua_rawgetp() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_createtable(L:int, narr:int, nrec:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_createtable(L:Number, narr:int, nrec:int):void")))
 void _wrap_lua_createtable() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int arg3 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, narr);
@@ -2578,14 +2578,14 @@ void _wrap_lua_createtable() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_newuserdata(L:int, sz:*):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_newuserdata(L:Number, sz:*):int")))
 void _wrap_lua_newuserdata() {
   lua_State *arg1 = (lua_State *) 0 ;
   size_t arg2 ;
   void *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   
   result = (void *)lua_newuserdata(arg1,arg2);
@@ -2599,14 +2599,14 @@ void _wrap_lua_newuserdata() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_getmetatable(L:int, objindex:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_getmetatable(L:Number, objindex:int):int")))
 void _wrap_lua_getmetatable() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, objindex);
@@ -2622,14 +2622,14 @@ void _wrap_lua_getmetatable() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_getuservalue(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_getuservalue(L:Number, idx:int):int")))
 void _wrap_lua_getuservalue() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -2645,13 +2645,13 @@ void _wrap_lua_getuservalue() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_setglobal(L:int, name:String):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_setglobal(L:Number, name:String):void")))
 void _wrap_lua_setglobal() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, name);
@@ -2669,13 +2669,13 @@ void _wrap_lua_setglobal() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_settable(L:int, idx:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_settable(L:Number, idx:int):void")))
 void _wrap_lua_settable() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -2690,14 +2690,14 @@ void _wrap_lua_settable() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_setfield(L:int, idx:int, k:String):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_setfield(L:Number, idx:int, k:String):void")))
 void _wrap_lua_setfield() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   char *arg3 = (char *) 0 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -2718,14 +2718,14 @@ void _wrap_lua_setfield() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_seti(L:int, idx:int, n:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_seti(L:Number, idx:int, n:int):void")))
 void _wrap_lua_seti() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   lua_Integer arg3 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -2743,13 +2743,13 @@ void _wrap_lua_seti() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_rawset(L:int, idx:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_rawset(L:Number, idx:int):void")))
 void _wrap_lua_rawset() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -2764,14 +2764,14 @@ void _wrap_lua_rawset() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_rawseti(L:int, idx:int, n:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_rawseti(L:Number, idx:int, n:int):void")))
 void _wrap_lua_rawseti() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   lua_Integer arg3 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -2789,14 +2789,14 @@ void _wrap_lua_rawseti() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_rawsetp(L:int, idx:int, p:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_rawsetp(L:Number, idx:int, p:int):void")))
 void _wrap_lua_rawsetp() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   void *arg3 = (void *) 0 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -2814,14 +2814,14 @@ void _wrap_lua_rawsetp() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_setmetatable(L:int, objindex:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_setmetatable(L:Number, objindex:int):int")))
 void _wrap_lua_setmetatable() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, objindex);
@@ -2837,13 +2837,13 @@ void _wrap_lua_setmetatable() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_setuservalue(L:int, idx:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_setuservalue(L:Number, idx:int):void")))
 void _wrap_lua_setuservalue() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -2858,7 +2858,7 @@ void _wrap_lua_setuservalue() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_callk(L:int, nargs:int, nresults:int, ctx:*):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_callk(L:Number, nargs:int, nresults:int, ctx:*):void")))
 void _wrap_lua_callk() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -2867,7 +2867,7 @@ void _wrap_lua_callk() {
   lua_KFunction arg5 = (lua_KFunction) 0 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, nargs);
@@ -2886,7 +2886,7 @@ void _wrap_lua_callk() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_pcallk(L:int, nargs:int, nresults:int, errfunc:int, ctx:*):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_pcallk(L:Number, nargs:int, nresults:int, errfunc:int, ctx:*):int")))
 void _wrap_lua_pcallk() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -2897,7 +2897,7 @@ void _wrap_lua_pcallk() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, nargs);
@@ -2946,7 +2946,7 @@ char *_wrap_lua_load_reader_func_ptr (struct lua_State *arg1, void *arg2, size_t
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_load(L:int, reader:Function, dt:int, chunkname:String, mode:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_load(L:Number, reader:Function, dt:int, chunkname:String, mode:String):int")))
 void _wrap_lua_load() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_Reader arg2 = (lua_Reader) 0 ;
@@ -2956,7 +2956,7 @@ void _wrap_lua_load() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     swig_as3(
@@ -3035,7 +3035,7 @@ int _wrap_lua_dump_writer_func_ptr (struct lua_State *arg1, void const *arg2, si
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_dump(L:int, writer:Function, data:int, strip:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_dump(L:Number, writer:Function, data:int, strip:int):int")))
 void _wrap_lua_dump() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_Writer arg2 = (lua_Writer) 0 ;
@@ -3044,7 +3044,7 @@ void _wrap_lua_dump() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     swig_as3(
@@ -3076,7 +3076,7 @@ void _wrap_lua_dump() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_yieldk(L:int, nresults:int, ctx:*):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_yieldk(L:Number, nresults:int, ctx:*):int")))
 void _wrap_lua_yieldk() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -3085,7 +3085,7 @@ void _wrap_lua_yieldk() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, nresults);
@@ -3102,7 +3102,7 @@ void _wrap_lua_yieldk() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_resume(L:int, from:int, narg:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_resume(L:Number, from:Number, narg:int):int")))
 void _wrap_lua_resume() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_State *arg2 = (lua_State *) 0 ;
@@ -3110,10 +3110,10 @@ void _wrap_lua_resume() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
-    AS3_GetScalarFromVar(arg2, from);
+    AS3_GetScalarFromVar(arg2, from); 
   }
   {
     AS3_GetScalarFromVar(arg3, narg);
@@ -3129,13 +3129,13 @@ void _wrap_lua_resume() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_status(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_status(L:Number):int")))
 void _wrap_lua_status() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)lua_status(arg1);
   {
@@ -3148,13 +3148,13 @@ void _wrap_lua_status() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_isyieldable(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_isyieldable(L:Number):int")))
 void _wrap_lua_isyieldable() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)lua_isyieldable(arg1);
   {
@@ -3302,7 +3302,7 @@ void _wrap_LUA_GCISRUNNING() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_gc(L:int, what:int, data:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_gc(L:Number, what:int, data:int):int")))
 void _wrap_lua_gc() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -3310,7 +3310,7 @@ void _wrap_lua_gc() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, what);
@@ -3329,13 +3329,13 @@ void _wrap_lua_gc() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_error(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_error(L:Number):int")))
 void _wrap_lua_error() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)lua_error(arg1);
   {
@@ -3348,14 +3348,14 @@ void _wrap_lua_error() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_next(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_next(L:Number, idx:int):int")))
 void _wrap_lua_next() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -3371,13 +3371,13 @@ void _wrap_lua_next() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_concat(L:int, n:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_concat(L:Number, n:int):void")))
 void _wrap_lua_concat() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, n);
@@ -3392,13 +3392,13 @@ void _wrap_lua_concat() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_len(L:int, idx:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_len(L:Number, idx:int):void")))
 void _wrap_lua_len() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -3413,14 +3413,14 @@ void _wrap_lua_len() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_stringtonumber(L:int, s:String):*")))
+__attribute__((annotate("as3sig:public function _wrap_lua_stringtonumber(L:Number, s:String):*")))
 void _wrap_lua_stringtonumber() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
   size_t result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, s);
@@ -3473,14 +3473,14 @@ void _wrap_lua_getallocf_lua_getallocf_Function() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_getallocf(L:int, ud:int):Function")))
+__attribute__((annotate("as3sig:public function _wrap_lua_getallocf(L:Number, ud:int):Function")))
 void _wrap_lua_getallocf() {
   lua_State *arg1 = (lua_State *) 0 ;
   void **arg2 = (void **) 0 ;
   lua_Alloc result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, ud);
@@ -3552,14 +3552,14 @@ void *_wrap_lua_setallocf_f_func_ptr (void *arg1, void *arg2, size_t arg3, size_
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_setallocf(L:int, f:Function, ud:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_setallocf(L:Number, f:Function, ud:int):void")))
 void _wrap_lua_setallocf() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_Alloc arg2 = (lua_Alloc) 0 ;
   void *arg3 = (void *) 0 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     swig_as3(
@@ -3722,7 +3722,7 @@ void _wrap_LUA_MASKCOUNT() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_getstack(L:int, level:int, ar:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_getstack(L:Number, level:int, ar:int):int")))
 void _wrap_lua_getstack() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -3730,7 +3730,7 @@ void _wrap_lua_getstack() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, level);
@@ -3749,7 +3749,7 @@ void _wrap_lua_getstack() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_getinfo(L:int, what:String, ar:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_getinfo(L:Number, what:String, ar:int):int")))
 void _wrap_lua_getinfo() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -3757,7 +3757,7 @@ void _wrap_lua_getinfo() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, what);
@@ -3779,7 +3779,7 @@ void _wrap_lua_getinfo() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_getlocal(L:int, ar:int, n:int):String")))
+__attribute__((annotate("as3sig:public function _wrap_lua_getlocal(L:Number, ar:int, n:int):String")))
 void _wrap_lua_getlocal() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_Debug *arg2 = (lua_Debug *) 0 ;
@@ -3787,7 +3787,7 @@ void _wrap_lua_getlocal() {
   char *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, ar);
@@ -3807,7 +3807,7 @@ void _wrap_lua_getlocal() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_setlocal(L:int, ar:int, n:int):String")))
+__attribute__((annotate("as3sig:public function _wrap_lua_setlocal(L:Number, ar:int, n:int):String")))
 void _wrap_lua_setlocal() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_Debug *arg2 = (lua_Debug *) 0 ;
@@ -3815,7 +3815,7 @@ void _wrap_lua_setlocal() {
   char *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, ar);
@@ -3835,7 +3835,7 @@ void _wrap_lua_setlocal() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_getupvalue(L:int, funcindex:int, n:int):String")))
+__attribute__((annotate("as3sig:public function _wrap_lua_getupvalue(L:Number, funcindex:int, n:int):String")))
 void _wrap_lua_getupvalue() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -3843,7 +3843,7 @@ void _wrap_lua_getupvalue() {
   char *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, funcindex);
@@ -3863,7 +3863,7 @@ void _wrap_lua_getupvalue() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_setupvalue(L:int, funcindex:int, n:int):String")))
+__attribute__((annotate("as3sig:public function _wrap_lua_setupvalue(L:Number, funcindex:int, n:int):String")))
 void _wrap_lua_setupvalue() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -3871,7 +3871,7 @@ void _wrap_lua_setupvalue() {
   char *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, funcindex);
@@ -3891,7 +3891,7 @@ void _wrap_lua_setupvalue() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_upvalueid(L:int, fidx:int, n:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_upvalueid(L:Number, fidx:int, n:int):int")))
 void _wrap_lua_upvalueid() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -3899,7 +3899,7 @@ void _wrap_lua_upvalueid() {
   void *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, fidx);
@@ -3918,7 +3918,7 @@ void _wrap_lua_upvalueid() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_upvaluejoin(L:int, fidx1:int, n1:int, fidx2:int, n2:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_upvaluejoin(L:Number, fidx1:int, n1:int, fidx2:int, n2:int):void")))
 void _wrap_lua_upvaluejoin() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -3927,7 +3927,7 @@ void _wrap_lua_upvaluejoin() {
   int arg5 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, fidx1);
@@ -3967,7 +3967,7 @@ void _wrap_lua_sethook_func_func_ptr (struct lua_State *arg1, struct lua_Debug *
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_sethook(L:int, func:Function, mask:int, count:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_sethook(L:Number, func:Function, mask:int, count:int):void")))
 void _wrap_lua_sethook() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_Hook arg2 = (lua_Hook) 0 ;
@@ -3975,7 +3975,7 @@ void _wrap_lua_sethook() {
   int arg4 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     swig_as3(
@@ -4023,13 +4023,13 @@ void _wrap_lua_gethook_lua_gethook_Function() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_gethook(L:int):Function")))
+__attribute__((annotate("as3sig:public function _wrap_lua_gethook(L:Number):Function")))
 void _wrap_lua_gethook() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_Hook result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (lua_Hook)lua_gethook(arg1);
   {
@@ -4052,13 +4052,13 @@ void _wrap_lua_gethook() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_gethookmask(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_gethookmask(L:Number):int")))
 void _wrap_lua_gethookmask() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)lua_gethookmask(arg1);
   {
@@ -4071,13 +4071,13 @@ void _wrap_lua_gethookmask() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_gethookcount(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_gethookcount(L:Number):int")))
 void _wrap_lua_gethookcount() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)lua_gethookcount(arg1);
   {
@@ -4105,14 +4105,14 @@ void _wrap_LUA_ERRFILE() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_checkversion_(L:int, ver:Number, sz:*):void")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_checkversion_(L:Number, ver:Number, sz:*):void")))
 void _wrap_luaL_checkversion_() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_Number arg2 ;
   size_t arg3 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, ver);
@@ -4128,7 +4128,7 @@ void _wrap_luaL_checkversion_() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_getmetafield(L:int, obj:int, e:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_getmetafield(L:Number, obj:int, e:String):int")))
 void _wrap_luaL_getmetafield() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -4136,7 +4136,7 @@ void _wrap_luaL_getmetafield() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, obj);
@@ -4158,7 +4158,7 @@ void _wrap_luaL_getmetafield() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_callmeta(L:int, obj:int, e:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_callmeta(L:Number, obj:int, e:String):int")))
 void _wrap_luaL_callmeta() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -4166,7 +4166,7 @@ void _wrap_luaL_callmeta() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, obj);
@@ -4188,7 +4188,7 @@ void _wrap_luaL_callmeta() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_tolstring(L:int, idx:int, len:int):String")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_tolstring(L:Number, idx:int, len:int):String")))
 void _wrap_luaL_tolstring() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -4196,7 +4196,7 @@ void _wrap_luaL_tolstring() {
   char *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -4216,7 +4216,7 @@ void _wrap_luaL_tolstring() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_argerror(L:int, arg:int, extramsg:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_argerror(L:Number, arg:int, extramsg:String):int")))
 void _wrap_luaL_argerror() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -4224,7 +4224,7 @@ void _wrap_luaL_argerror() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, arg);
@@ -4246,7 +4246,7 @@ void _wrap_luaL_argerror() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_checklstring(L:int, arg:int, l:int):String")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_checklstring(L:Number, arg:int, l:int):String")))
 void _wrap_luaL_checklstring() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -4254,7 +4254,7 @@ void _wrap_luaL_checklstring() {
   char *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, arg);
@@ -4274,7 +4274,7 @@ void _wrap_luaL_checklstring() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_optlstring(L:int, arg:int, def:String, l:int):String")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_optlstring(L:Number, arg:int, def:String, l:int):String")))
 void _wrap_luaL_optlstring() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -4283,7 +4283,7 @@ void _wrap_luaL_optlstring() {
   char *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, arg);
@@ -4309,14 +4309,14 @@ void _wrap_luaL_optlstring() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_checknumber(L:int, arg:int):Number")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_checknumber(L:Number, arg:int):Number")))
 void _wrap_luaL_checknumber() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   lua_Number result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, arg);
@@ -4332,7 +4332,7 @@ void _wrap_luaL_checknumber() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_optnumber(L:int, arg:int, def:Number):Number")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_optnumber(L:Number, arg:int, def:Number):Number")))
 void _wrap_luaL_optnumber() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -4340,7 +4340,7 @@ void _wrap_luaL_optnumber() {
   lua_Number result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, arg);
@@ -4359,14 +4359,14 @@ void _wrap_luaL_optnumber() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_checkinteger(L:int, arg:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_checkinteger(L:Number, arg:int):int")))
 void _wrap_luaL_checkinteger() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   lua_Integer result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, arg);
@@ -4382,7 +4382,7 @@ void _wrap_luaL_checkinteger() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_optinteger(L:int, arg:int, def:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_optinteger(L:Number, arg:int, def:int):int")))
 void _wrap_luaL_optinteger() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -4390,7 +4390,7 @@ void _wrap_luaL_optinteger() {
   lua_Integer result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, arg);
@@ -4409,14 +4409,14 @@ void _wrap_luaL_optinteger() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_checkstack(L:int, sz:int, msg:String):void")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_checkstack(L:Number, sz:int, msg:String):void")))
 void _wrap_luaL_checkstack() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   char *arg3 = (char *) 0 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, sz);
@@ -4437,14 +4437,14 @@ void _wrap_luaL_checkstack() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_checktype(L:int, arg:int, t:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_checktype(L:Number, arg:int, t:int):void")))
 void _wrap_luaL_checktype() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int arg3 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, arg);
@@ -4462,13 +4462,13 @@ void _wrap_luaL_checktype() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_checkany(L:int, arg:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_checkany(L:Number, arg:int):void")))
 void _wrap_luaL_checkany() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, arg);
@@ -4483,14 +4483,14 @@ void _wrap_luaL_checkany() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_newmetatable(L:int, tname:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_newmetatable(L:Number, tname:String):int")))
 void _wrap_luaL_newmetatable() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, tname);
@@ -4509,13 +4509,13 @@ void _wrap_luaL_newmetatable() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_setmetatable(L:int, tname:String):void")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_setmetatable(L:Number, tname:String):void")))
 void _wrap_luaL_setmetatable() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, tname);
@@ -4533,7 +4533,7 @@ void _wrap_luaL_setmetatable() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_testudata(L:int, ud:int, tname:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_testudata(L:Number, ud:int, tname:String):int")))
 void _wrap_luaL_testudata() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -4541,7 +4541,7 @@ void _wrap_luaL_testudata() {
   void *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, ud);
@@ -4563,7 +4563,7 @@ void _wrap_luaL_testudata() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_checkudata(L:int, ud:int, tname:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_checkudata(L:Number, ud:int, tname:String):int")))
 void _wrap_luaL_checkudata() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -4571,7 +4571,7 @@ void _wrap_luaL_checkudata() {
   void *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, ud);
@@ -4593,13 +4593,13 @@ void _wrap_luaL_checkudata() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_where(L:int, lvl:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_where(L:Number, lvl:int):void")))
 void _wrap_luaL_where() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, lvl);
@@ -4614,7 +4614,7 @@ void _wrap_luaL_where() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_error(L:int, fmt:String, arg3):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_error(L:Number, fmt:String, arg3):int")))
 void _wrap_luaL_error() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -4622,7 +4622,7 @@ void _wrap_luaL_error() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, fmt);
@@ -4642,7 +4642,7 @@ void _wrap_luaL_error() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_checkoption(L:int, arg:int, def:String, lst:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_checkoption(L:Number, arg:int, def:String, lst:int):int")))
 void _wrap_luaL_checkoption() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -4651,7 +4651,7 @@ void _wrap_luaL_checkoption() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, arg);
@@ -4676,7 +4676,7 @@ void _wrap_luaL_checkoption() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_fileresult(L:int, stat:int, fname:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_fileresult(L:Number, stat:int, fname:String):int")))
 void _wrap_luaL_fileresult() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -4684,7 +4684,7 @@ void _wrap_luaL_fileresult() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, stat);
@@ -4706,14 +4706,14 @@ void _wrap_luaL_fileresult() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_execresult(L:int, stat:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_execresult(L:Number, stat:int):int")))
 void _wrap_luaL_execresult() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, stat);
@@ -4759,14 +4759,14 @@ void _wrap_LUA_REFNIL() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_ref(L:int, t:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_ref(L:Number, t:int):int")))
 void _wrap_luaL_ref() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, t);
@@ -4782,14 +4782,14 @@ void _wrap_luaL_ref() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_unref(L:int, t:int, ref:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_unref(L:Number, t:int, ref:int):void")))
 void _wrap_luaL_unref() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   int arg3 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, t);
@@ -4807,7 +4807,7 @@ void _wrap_luaL_unref() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_loadfilex(L:int, filename:String, mode:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_loadfilex(L:Number, filename:String, mode:String):int")))
 void _wrap_luaL_loadfilex() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -4815,7 +4815,7 @@ void _wrap_luaL_loadfilex() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, filename);
@@ -4840,7 +4840,7 @@ void _wrap_luaL_loadfilex() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_loadbufferx(L:int, buff:String, sz:*):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_loadbufferx(L:Number, buff:String, sz:*):int")))
 void _wrap_luaL_loadbufferx() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -4850,7 +4850,7 @@ void _wrap_luaL_loadbufferx() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, buff);
@@ -4870,14 +4870,14 @@ void _wrap_luaL_loadbufferx() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_loadstring(L:int, s:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_loadstring(L:Number, s:String):int")))
 void _wrap_luaL_loadstring() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, s);
@@ -4896,13 +4896,13 @@ void _wrap_luaL_loadstring() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_newstate():int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_newstate():Number")))
 void _wrap_luaL_newstate() {
   lua_State *result ;
   
   result = (lua_State *)luaL_newstate();
   {
-    AS3_DeclareVar(asresult, int);
+    AS3_DeclareVar(asresult, Number);
     AS3_CopyScalarToVar(asresult, result);
   }
   {
@@ -4911,14 +4911,14 @@ void _wrap_luaL_newstate() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_len(L:int, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_len(L:Number, idx:int):int")))
 void _wrap_luaL_len() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
   lua_Integer result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -4934,7 +4934,7 @@ void _wrap_luaL_len() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_gsub(L:int, s:String, p:String, r:String):String")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_gsub(L:Number, s:String, p:String, r:String):String")))
 void _wrap_luaL_gsub() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -4943,7 +4943,7 @@ void _wrap_luaL_gsub() {
   char *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, s);
@@ -4975,14 +4975,14 @@ void _wrap_luaL_gsub() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_setfuncs(L:int, l:int, nup:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_setfuncs(L:Number, l:int, nup:int):void")))
 void _wrap_luaL_setfuncs() {
   lua_State *arg1 = (lua_State *) 0 ;
   luaL_Reg *arg2 = (luaL_Reg *) 0 ;
   int arg3 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, l);
@@ -5000,7 +5000,7 @@ void _wrap_luaL_setfuncs() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_getsubtable(L:int, idx:int, fname:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_getsubtable(L:Number, idx:int, fname:String):int")))
 void _wrap_luaL_getsubtable() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -5008,7 +5008,7 @@ void _wrap_luaL_getsubtable() {
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, idx);
@@ -5030,7 +5030,7 @@ void _wrap_luaL_getsubtable() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_traceback(L:int, L1:int, msg:String, level:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_traceback(L:Number, L1:Number, msg:String, level:int):void")))
 void _wrap_luaL_traceback() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_State *arg2 = (lua_State *) 0 ;
@@ -5038,10 +5038,10 @@ void _wrap_luaL_traceback() {
   int arg4 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
-    AS3_GetScalarFromVar(arg2, L1);
+    AS3_GetScalarFromVar(arg2, L1); 
   }
   {
     AS3_MallocString(arg3, msg);
@@ -5080,7 +5080,7 @@ int _wrap_luaL_requiref_openf_func_ptr (struct lua_State *arg1) {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_requiref(L:int, modname:String, openf:Function, glb:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_requiref(L:Number, modname:String, openf:Function, glb:int):void")))
 void _wrap_luaL_requiref() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -5088,7 +5088,7 @@ void _wrap_luaL_requiref() {
   int arg4 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_MallocString(arg2, modname);
@@ -5122,13 +5122,13 @@ void _wrap_luaL_requiref() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_buffinit(L:int, B:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_buffinit(L:Number, B:int):void")))
 void _wrap_luaL_buffinit() {
   lua_State *arg1 = (lua_State *) 0 ;
   luaL_Buffer *arg2 = (luaL_Buffer *) 0 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, B);
@@ -5268,7 +5268,7 @@ void _wrap_luaL_pushresultsize() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_buffinitsize(L:int, B:int, sz:*):String")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_buffinitsize(L:Number, B:int, sz:*):String")))
 void _wrap_luaL_buffinitsize() {
   lua_State *arg1 = (lua_State *) 0 ;
   luaL_Buffer *arg2 = (luaL_Buffer *) 0 ;
@@ -5276,7 +5276,7 @@ void _wrap_luaL_buffinitsize() {
   char *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   {
     AS3_GetScalarFromVar(arg2, B);
@@ -5310,13 +5310,13 @@ void _wrap_LUA_FILEHANDLE() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaopen_base(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaopen_base(L:Number):int")))
 void _wrap_luaopen_base() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)luaopen_base(arg1);
   {
@@ -5345,13 +5345,13 @@ void _wrap_LUA_COLIBNAME() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaopen_coroutine(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaopen_coroutine(L:Number):int")))
 void _wrap_luaopen_coroutine() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)luaopen_coroutine(arg1);
   {
@@ -5380,13 +5380,13 @@ void _wrap_LUA_TABLIBNAME() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaopen_table(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaopen_table(L:Number):int")))
 void _wrap_luaopen_table() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)luaopen_table(arg1);
   {
@@ -5415,13 +5415,13 @@ void _wrap_LUA_IOLIBNAME() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaopen_io(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaopen_io(L:Number):int")))
 void _wrap_luaopen_io() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)luaopen_io(arg1);
   {
@@ -5450,13 +5450,13 @@ void _wrap_LUA_OSLIBNAME() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaopen_os(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaopen_os(L:Number):int")))
 void _wrap_luaopen_os() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)luaopen_os(arg1);
   {
@@ -5485,13 +5485,13 @@ void _wrap_LUA_STRLIBNAME() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaopen_string(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaopen_string(L:Number):int")))
 void _wrap_luaopen_string() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)luaopen_string(arg1);
   {
@@ -5520,13 +5520,13 @@ void _wrap_LUA_UTF8LIBNAME() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaopen_utf8(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaopen_utf8(L:Number):int")))
 void _wrap_luaopen_utf8() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)luaopen_utf8(arg1);
   {
@@ -5555,13 +5555,13 @@ void _wrap_LUA_BITLIBNAME() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaopen_bit32(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaopen_bit32(L:Number):int")))
 void _wrap_luaopen_bit32() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)luaopen_bit32(arg1);
   {
@@ -5590,13 +5590,13 @@ void _wrap_LUA_MATHLIBNAME() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaopen_math(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaopen_math(L:Number):int")))
 void _wrap_luaopen_math() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)luaopen_math(arg1);
   {
@@ -5625,13 +5625,13 @@ void _wrap_LUA_DBLIBNAME() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaopen_debug(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaopen_debug(L:Number):int")))
 void _wrap_luaopen_debug() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)luaopen_debug(arg1);
   {
@@ -5660,13 +5660,13 @@ void _wrap_LUA_LOADLIBNAME() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaopen_package(L:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaopen_package(L:Number):int")))
 void _wrap_luaopen_package() {
   lua_State *arg1 = (lua_State *) 0 ;
   int result ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   result = (int)luaopen_package(arg1);
   {
@@ -5679,12 +5679,12 @@ void _wrap_luaopen_package() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_openlibs(L:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_openlibs(L:Number):void")))
 void _wrap_luaL_openlibs() {
   lua_State *arg1 = (lua_State *) 0 ;
   
   {
-    AS3_GetScalarFromVar(arg1, L);
+    AS3_GetScalarFromVar(arg1, L); 
   }
   luaL_openlibs(arg1);
   {
