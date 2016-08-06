@@ -700,7 +700,7 @@ public class Lua {
 		return _wrap_lua_ident_get();
 	}
 
-	public static function lua_newstate(f:Function, ud:int):Number {
+	public static function lua_newstate(f:Function, ud:Number):Number {
 		return _wrap_lua_newstate(f, ud);
 	}
 
@@ -796,7 +796,7 @@ public class Lua {
 		return _wrap_lua_tolstring(L, idx, len);
 	}
 
-	public static function lua_rawlen(L:Number, idx:int):* {
+	public static function lua_rawlen(L:Number, idx:int):uint {
 		return _wrap_lua_rawlen(L, idx);
 	}
 
@@ -804,7 +804,7 @@ public class Lua {
 		return _wrap_lua_tocfunction(L, idx);
 	}
 
-	public static function lua_touserdata(L:Number, idx:int):int {
+	public static function lua_touserdata(L:Number, idx:int):Number {
 		return _wrap_lua_touserdata(L, idx);
 	}
 
@@ -812,7 +812,7 @@ public class Lua {
 		return _wrap_lua_tothread(L, idx);
 	}
 
-	public static function lua_topointer(L:Number, idx:int):int {
+	public static function lua_topointer(L:Number, idx:int):Number {
 		return _wrap_lua_topointer(L, idx);
 	}
 
@@ -908,7 +908,7 @@ public class Lua {
 		_wrap_lua_pushinteger(L, n);
 	}
 
-	public static function lua_pushlstring(L:Number, s:String, len:*):String {
+	public static function lua_pushlstring(L:Number, s:String, len:uint):String {
 		return _wrap_lua_pushlstring(L, s, len);
 	}
 
@@ -932,7 +932,7 @@ public class Lua {
 		_wrap_lua_pushboolean(L, b);
 	}
 
-	public static function lua_pushlightuserdata(L:Number, p:int):void {
+	public static function lua_pushlightuserdata(L:Number, p:Number):void {
 		_wrap_lua_pushlightuserdata(L, p);
 	}
 
@@ -964,7 +964,7 @@ public class Lua {
 		return _wrap_lua_rawgeti(L, idx, n);
 	}
 
-	public static function lua_rawgetp(L:Number, idx:int, p:int):int {
+	public static function lua_rawgetp(L:Number, idx:int, p:Number):int {
 		return _wrap_lua_rawgetp(L, idx, p);
 	}
 
@@ -972,7 +972,7 @@ public class Lua {
 		_wrap_lua_createtable(L, narr, nrec);
 	}
 
-	public static function lua_newuserdata(L:Number, sz:*):int {
+	public static function lua_newuserdata(L:Number, sz:uint):Number {
 		return _wrap_lua_newuserdata(L, sz);
 	}
 
@@ -1008,7 +1008,7 @@ public class Lua {
 		_wrap_lua_rawseti(L, idx, n);
 	}
 
-	public static function lua_rawsetp(L:Number, idx:int, p:int):void {
+	public static function lua_rawsetp(L:Number, idx:int, p:Number):void {
 		_wrap_lua_rawsetp(L, idx, p);
 	}
 
@@ -1028,11 +1028,11 @@ public class Lua {
 		return _wrap_lua_pcallk(L, nargs, nresults, errfunc, ctx);
 	}
 
-	public static function lua_load(L:Number, reader:Function, dt:int, chunkname:String, mode:String):int {
+	public static function lua_load(L:Number, reader:Function, dt:Number, chunkname:String, mode:String):int {
 		return _wrap_lua_load(L, reader, dt, chunkname, mode);
 	}
 
-	public static function lua_dump(L:Number, writer:Function, data:int, strip:int):int {
+	public static function lua_dump(L:Number, writer:Function, data:Number, strip:int):int {
 		return _wrap_lua_dump(L, writer, data, strip);
 	}
 
@@ -1108,7 +1108,7 @@ public class Lua {
 		_wrap_lua_len(L, idx);
 	}
 
-	public static function lua_stringtonumber(L:Number, s:String):* {
+	public static function lua_stringtonumber(L:Number, s:String):uint {
 		return _wrap_lua_stringtonumber(L, s);
 	}
 
@@ -1116,7 +1116,7 @@ public class Lua {
 		return _wrap_lua_getallocf(L, ud);
 	}
 
-	public static function lua_setallocf(L:Number, f:Function, ud:int):void {
+	public static function lua_setallocf(L:Number, f:Function, ud:Number):void {
 		_wrap_lua_setallocf(L, f, ud);
 	}
 
@@ -1180,7 +1180,7 @@ public class Lua {
 		return _wrap_lua_setupvalue(L, funcindex, n);
 	}
 
-	public static function lua_upvalueid(L:Number, fidx:int, n:int):int {
+	public static function lua_upvalueid(L:Number, fidx:int, n:int):Number {
 		return _wrap_lua_upvalueid(L, fidx, n);
 	}
 
@@ -1208,7 +1208,7 @@ public class Lua {
 		return _wrap_LUA_ERRFILE();
 	}
 
-	public static function luaL_checkversion_(L:Number, ver:Number, sz:*):void {
+	public static function luaL_checkversion_(L:Number, ver:Number, sz:uint):void {
 		_wrap_luaL_checkversion_(L, ver, sz);
 	}
 
@@ -1272,11 +1272,11 @@ public class Lua {
 		_wrap_luaL_setmetatable(L, tname);
 	}
 
-	public static function luaL_testudata(L:Number, ud:int, tname:String):int {
+	public static function luaL_testudata(L:Number, ud:int, tname:String):Number {
 		return _wrap_luaL_testudata(L, ud, tname);
 	}
 
-	public static function luaL_checkudata(L:Number, ud:int, tname:String):int {
+	public static function luaL_checkudata(L:Number, ud:int, tname:String):Number {
 		return _wrap_luaL_checkudata(L, ud, tname);
 	}
 
@@ -1320,8 +1320,8 @@ public class Lua {
 		return _wrap_luaL_loadfilex(L, filename, mode);
 	}
 
-	public static function luaL_loadbufferx(L:Number, buff:String, sz:*):int {
-		return _wrap_luaL_loadbufferx(L, buff, sz);
+	public static function luaL_loadbufferx(L:Number, buff:String, sz:uint, name:String, mode:String):int {
+		return _wrap_luaL_loadbufferx(L, buff, sz, name, mode);
 	}
 
 	public static function luaL_loadstring(L:Number, s:String):int {
@@ -1360,11 +1360,11 @@ public class Lua {
 		_wrap_luaL_buffinit(L, B);
 	}
 
-	public static function luaL_prepbuffsize(B:int, sz:*):String {
+	public static function luaL_prepbuffsize(B:int, sz:uint):String {
 		return _wrap_luaL_prepbuffsize(B, sz);
 	}
 
-	public static function luaL_addlstring(B:int, s:String, l:*):void {
+	public static function luaL_addlstring(B:int, s:String, l:uint):void {
 		_wrap_luaL_addlstring(B, s, l);
 	}
 
@@ -1380,11 +1380,11 @@ public class Lua {
 		_wrap_luaL_pushresult(B);
 	}
 
-	public static function luaL_pushresultsize(B:int, sz:*):void {
+	public static function luaL_pushresultsize(B:int, sz:uint):void {
 		_wrap_luaL_pushresultsize(B, sz);
 	}
 
-	public static function luaL_buffinitsize(L:Number, B:int, sz:*):String {
+	public static function luaL_buffinitsize(L:Number, B:int, sz:uint):String {
 		return _wrap_luaL_buffinitsize(L, B, sz);
 	}
 
@@ -1478,6 +1478,14 @@ public class Lua {
 
 	public static function luaL_openlibs(L:Number):void {
 		_wrap_luaL_openlibs(L);
+	}
+
+	public static function get LUA_FLASHLIBNAME():String{
+		return _wrap_LUA_FLASHLIBNAME();
+	}
+
+	public static function luaopen_flash(L:Number):int {
+		return _wrap_luaopen_flash(L);
 	}
 
 }

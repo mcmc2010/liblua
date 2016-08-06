@@ -1,23 +1,22 @@
 package
 {
+	import com.mxlib.ScriptContentLua;
+	import com.mxlib.ScriptRead;
+	
 	import flash.display.Sprite;
 	
-	import mxlib.Lua;
-	import mxlib.Lua_State;
-	
+	//
 	public class samples extends Sprite
 	{
-		private var _lua_State:Lua_State;
+		private var _scriptRead:ScriptRead;
 		
 		public function samples()
 		{			
-			this._lua_State = new Lua_State(true);
+			this._scriptRead = new ScriptRead();
 			
-			trace(Lua.LUA_VERSION);
-			trace(Lua.LUA_COPYRIGHT);
-			
-			this._lua_State.dispose();
-			this._lua_State = null;
+			//
+			ScriptRead.Singleton.load("data/helloworld.lua", new ScriptContentLua(), function () : void {
+			});
 		}
 	}
 }

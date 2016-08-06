@@ -14,6 +14,7 @@ _wrap_LUA_ERRMEM
 _wrap_LUA_ERRRUN
 _wrap_LUA_ERRSYNTAX
 _wrap_LUA_FILEHANDLE
+_wrap_LUA_FLASHLIBNAME
 _wrap_LUA_FLOAT_DOUBLE
 _wrap_LUA_FLOAT_FLOAT
 _wrap_LUA_FLOAT_LONGDOUBLE
@@ -250,6 +251,7 @@ _wrap_luaopen_base
 _wrap_luaopen_bit32
 _wrap_luaopen_coroutine
 _wrap_luaopen_debug
+_wrap_luaopen_flash
 _wrap_luaopen_io
 _wrap_luaopen_math
 _wrap_luaopen_os
@@ -258,6 +260,8 @@ _wrap_luaopen_string
 _wrap_luaopen_table
 _wrap_luaopen_utf8
 avm2_self_unlock
+flash_pushreference
+flash_pushreferencex
 free
 luaL_addlstring
 luaL_addstring
@@ -283,6 +287,7 @@ luaL_getsubtable
 luaL_gsub
 luaL_len
 luaL_loadbufferx
+luaL_loadfile
 luaL_loadfilex
 luaL_loadstring
 luaL_newmetatable
@@ -306,6 +311,7 @@ luaL_where
 lua_absindex
 lua_arith
 lua_atpanic
+lua_call
 lua_callk
 lua_checkstack
 lua_close
@@ -341,10 +347,13 @@ lua_isyieldable
 lua_len
 lua_load
 lua_newstate
+lua_newtable
 lua_newthread
 lua_newuserdata
 lua_next
+lua_pcall
 lua_pcallk
+lua_pop
 lua_pushboolean
 lua_pushcclosure
 lua_pushfstring
@@ -382,10 +391,13 @@ lua_status
 lua_stringtonumber
 lua_toboolean
 lua_tocfunction
+lua_tointeger
 lua_tointegerx
 lua_tolstring
+lua_tonumber
 lua_tonumberx
 lua_topointer
+lua_tostring
 lua_tothread
 lua_touserdata
 lua_type
@@ -399,6 +411,7 @@ luaopen_base
 luaopen_bit32
 luaopen_coroutine
 luaopen_debug
+luaopen_flash
 luaopen_io
 luaopen_math
 luaopen_os
@@ -407,5 +420,4 @@ luaopen_string
 luaopen_table
 luaopen_utf8
 main
-malloc
 strlen

@@ -40,7 +40,7 @@ LIBLUA_CORE		= lapi.o lcode.o lctype.o ldebug.o ldo.o ldump.o lfunc.o lgc.o llex
 			    ltm.o lundump.o lvm.o lzio.o
 LIBLUA_LIBS		= lauxlib.o lbaselib.o lbitlib.o lcorolib.o ldblib.o liolib.o \
 			    lmathlib.o loslib.o lstrlib.o ltablib.o lutf8lib.o loadlib.o linit.o
-LIBLUA_OTHER		= lflashlib.o
+LIBLUA_OTHER	= lflashlib.o
 LIBLUA_BASE		= $(LIBLUA_CORE) $(LIBLUA_LIBS)
 LIBLUA_ALL		= $(LIBLUA_BASE) $(LIBLUA_OTHER)
 
@@ -49,20 +49,20 @@ flash:compile_cpp copy_include
 	mkdir -p ./lib
 
 	@echo "-> Compile the flash library c++ files."
-	$(GCC_COMPILE)  $(CPP_FLAGS_ALL)	-o ./tmp/lflashlib.o -I ./src -c ./flash/lflashlib.c  
+	$(GCC_COMPILE)  $(CPP_FLAGS_ALL)	-o ./tmp/lflashlib.o -I ./src -I ./flash -c ./flash/lflashlib.c  
 
 	@echo "-> AR link to static library."
 	cd ./tmp && $(AR_LINK) rcu ../lib/$(LIBLUA_FILENAME) $(LIBLUA_ALL)
 	cd ./tmp && $(RANLIB_LINK) ../lib/$(LIBLUA_FILENAME)
 
 	@echo "-> Generate SWIG wrappers around the functions in the library."
-	$(SWIG_COMPILE) -DLUA_32BITS -I./include -as3 -module Lua -outdir ./lib -includeall -ignoremissing -o ./flash/lflashapi_wrapper.c ./flash/lflashapi.h
+	$(SWIG_COMPILE) -DLUA_32BITS -I./include -I./flash -as3 -module Lua -outdir ./lib -includeall -ignoremissing -o ./flash/lflashapi_wrapper.c ./flash/lflashapi.h
 
 	@echo "-> Compile the SWIG wrapper to ABC."
 	cd $(FLASCC_SDK) && $(AS3_COMPILE) -import "./usr/lib/builtin.abc" -import "./usr/lib/playerglobal.abc" "$(LIBLUA_SOURCE_N)/flash/Lua.as"
 
 	@echo "-> Compile the wrapper files to link files."
-	$(GCC_COMPILE) $(CPP_FLAGS_ALL) -o ./tmp/lflashapi_wrapper.o -I ./include -c ./flash/lflashapi_wrapper.c 
+	$(GCC_COMPILE) $(CPP_FLAGS_ALL) -o ./tmp/lflashapi_wrapper.o -I ./include -I ./flash -c ./flash/lflashapi_wrapper.c 
 	$(FLASCC_SDK)/usr/bin/nm -f posix "./tmp/lflashapi_wrapper.o" | awk '{print $$1}' | sed 's/_//' > "./flash/exports.txt" 	
 	
 	@echo "-> Compile the library into a SWC."

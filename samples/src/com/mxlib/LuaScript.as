@@ -5,8 +5,7 @@ package com.mxlib
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 	import flash.utils.Endian;
-
-	//
+	
 	import mxlib.Lua;
 	import mxlib.Lua_State;
 	
@@ -76,19 +75,32 @@ package com.mxlib
 				return false; 
 			}
 			
-//			//
-//			var stack:int 	= Lua.lua_gettop(this._lua_state);
-//			var result:int	= Lua.luaL_loadstring(this._lua_state, this._text);
-//			if(result != 0)
-//			{
-//				AS3_Logout("[LuaScript] luaL_loadstring fail, code:" + result + ", desc:" + Lua.lua_tolstring(this._lua_state, -1, 0));
-//				
-//				// 錯誤日誌緣故需要彈出1個元素
-//				Lua.lua_pop(this._lua_state, 1);
-//				return false;
-//			}
-//			
-//			stack = Lua.lua_gettop(this._lua_state);
+			try
+			{
+				//
+				var stack:int 	= Lua.lua_gettop(this._lua_state.real_LuaState);
+				var result:int	= Lua.luaL_loadstring(this._lua_state.real_LuaState, this._text);
+				if(result != 0)
+				{
+					while((stack = Lua.lua_gettop(this._lua_state.real_LuaState)) > 0)
+					{
+						Logout("[LuaScript] ("+stack+") luaL_loadstring fail, code:" + result + ", desc:" + Lua.lua_tostring(this._lua_state.real_LuaState, -1));
+						
+						// 錯誤日誌緣故需要彈出1個元素
+						Lua.lua_pop(this._lua_state.real_LuaState, 1);
+					}
+					
+	
+					return false;
+				}
+				
+				stack = Lua.lua_gettop(this._lua_state.real_LuaState);
+			}
+			catch(e:Error)
+			{
+				trace("Exception: " + e.message);
+				return false;
+			}
 			
 			//
 			if(!this.lastLoad())
@@ -98,24 +110,61 @@ package com.mxlib
 			return true;
 		}
 		
+		public function doing() : Boolean
+		{	
+			this._has_doing_successed = false;
+			Lua.lua_pop(this._lua_state.real_LuaState, 1);
+			try
+			{
+				//
+				var stack:int 	= Lua.lua_gettop(this._lua_state.real_LuaState);
+				
+				var result:int	= Lua.lua_pcall(this._lua_state.real_LuaState, 0, Lua.LUA_MULTRET, 0);
+				if(result != 0)
+				{
+					while((stack = Lua.lua_gettop(this._lua_state.real_LuaState)) > 0)
+					{
+						Logout("[LuaScript] ("+stack+") luaL_dostring fail, code:" + result + ", desc:" + Lua.lua_tostring(this._lua_state.real_LuaState, -1));
+						
+						// 錯誤日誌緣故需要彈出1個元素
+						Lua.lua_pop(this._lua_state.real_LuaState, 1);
+					} 
+					
+					return false;
+				}
+				
+				//
+				stack = Lua.lua_gettop(this._lua_state.real_LuaState)
+			}
+			catch(e:Error)
+			{
+				trace("Exception: " + e.message);
+				return false;
+			}
+			
+			//
+			this._has_doing_successed = true;
+			return true;
+		}
+		
 		protected virtual function preLoad() : Boolean
 		{
-//			var stack:int 	= Lua.lua_gettop(this._lua_state);
-//			
-//			//			// 註冊自己到腳本狀態機
-//			//			Lua.luaL_newmetatable(this._lua_state, "LuaScript");
-//			//			Lua.lua_pushstring(this._lua_state, "__index");		//設置表項
-//			//			Lua.lua_pushvalue(this._lua_state, -2); 
-//			//			Lua.lua_settable(this._lua_state, -3);
-//			//			
-//			//			//
-//			//			Lua.lua_pop(this._lua_state, 1);
-//			
-//			//
+			var stack:int 	= Lua.lua_gettop(this._lua_state.real_LuaState);
+		
+			//			// 註冊自己到腳本狀態機
+			//			Lua.luaL_newmetatable(this._lua_state, "LuaScript");
+			//			Lua.lua_pushstring(this._lua_state, "__index");		//設置表項
+			//			Lua.lua_pushvalue(this._lua_state, -2); 
+			//			Lua.lua_settable(this._lua_state, -3);
+			//			
+			//			//
+			//			Lua.lua_pop(this._lua_state, 1);
+			
+			//
 //			this.lua_pushflashobject(this);
 //			Lua.lua_setglobal(this._lua_state, "__script");
-//			
-//			stack	= Lua.lua_gettop(this._lua_state);
+		
+			stack	= Lua.lua_gettop(this._lua_state.real_LuaState);
 			return true;
 		}
 		
@@ -128,6 +177,16 @@ package com.mxlib
 		protected virtual function callbackLog(text:String) : void
 		{
 			trace(text);
+		}
+		
+		public function Logout(text:String) : void
+		{
+			this.callbackLog(text + "\n");
+		}
+		
+		public function Script_Logout(text:String) : void
+		{
+			this.callbackLog("[LuaScript][LuaCall] Logout :" + text + "\n");
 		}
 	};
 	

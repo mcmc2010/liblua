@@ -132,11 +132,78 @@
 #include "lua.h"
 #include "lauxlib.h"
 #include "lualib.h"
+#include "lflashlib.h"
 #include "AS3/AS3.h"
 
 int 	main() 
 { 
 	AS3_GoAsync(); 
+}
+
+//--------------------------------------------------------------------------
+#undef lua_pop
+void lua_pop(lua_State *L, int n) 
+{ 
+	lua_settop(L, -(n)-1); 
+}
+
+#undef lua_tonumber
+lua_Number lua_tonumber(lua_State *L, int i)
+{
+	lua_tonumberx(L,i,NULL);
+}
+
+#undef lua_tointeger
+lua_Integer lua_tointeger(lua_State *L, int i)
+{
+	lua_tointegerx(L,i,NULL);
+}
+
+#undef lua_tostring
+const char * lua_tostring(lua_State *L, int i)	
+{
+	lua_tolstring(L, i, NULL);
+}
+
+#undef lua_newtable
+void lua_newtable(lua_State *L)
+{
+	lua_createtable(L, 0, 0);
+}
+
+#undef lua_call
+void  lua_call(lua_State *L, int n, int r)
+{
+	lua_callk(L, n, r, 0, NULL);
+}
+
+#undef lua_pcall
+int lua_pcall(lua_State *L, int n, int r, int f)
+{	
+	lua_pcallk(L, n, r, f, 0, NULL);
+}
+
+//
+#undef luaL_loadfile
+int luaL_loadfile(lua_State *L, const char *f)	
+{
+	luaL_loadfilex(L,f,NULL);
+}
+
+
+//flash
+int flash_pushreferencex(lua_State *L, const char *name)
+{
+	// Push the new userdata onto the stack
+	int result = (int)lua_newuserdata(L, 4);
+	luaL_getmetatable(L, name);
+	lua_setmetatable(L, -2);
+	return result;
+}
+
+int flash_pushreference(lua_State *L)
+{
+	return flash_pushreferencex(L, "flash");
 }
 
 
@@ -939,48 +1006,32 @@ void *_wrap_lua_newstate_f_func_ptr (void *arg1, void *arg2, size_t arg3, size_t
   void *result ;
   
   {
-    AS3_DeclareVar(arg1, int);
+    AS3_DeclareVar(arg1, Number);
     AS3_CopyScalarToVar(arg1, arg1);
   }
   {
-    AS3_DeclareVar(arg2, int);
+    AS3_DeclareVar(arg2, Number);
     AS3_CopyScalarToVar(arg2, arg2);
   }
   {
-    size_t *retval = (size_t *) malloc(sizeof(size_t));
-    memcpy(retval, &arg3, sizeof(size_t));
-    
-    swig_as3(
-      "var ptr:int = %0;" 
-      "var out = new $astype();"
-      "out.swigCPtr = ptr;"
-      "var arg3 = out;"
-      ::"r"(retval)
-      );
+    AS3_DeclareVar(arg3, uint);
+    AS3_CopyScalarToVar(arg3, arg3);
   }
   {
-    size_t *retval = (size_t *) malloc(sizeof(size_t));
-    memcpy(retval, &arg4, sizeof(size_t));
-    
-    swig_as3(
-      "var ptr:int = %0;" 
-      "var out = new $astype();"
-      "out.swigCPtr = ptr;"
-      "var arg4 = out;"
-      ::"r"(retval)
-      );
+    AS3_DeclareVar(arg4, uint);
+    AS3_CopyScalarToVar(arg4, arg4);
   }
   inline_as3(
     "var asresult = f(arg1, arg2, arg3, arg4);"
     );
   {
-    AS3_GetScalarFromVar(result, asresult);
+    AS3_GetScalarFromVar(result, asresult); 
   }
   return result;
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_newstate(f:Function, ud:int):Number")))
+__attribute__((annotate("as3sig:public function _wrap_lua_newstate(f:Function, ud:Number):Number")))
 void _wrap_lua_newstate() {
   lua_Alloc arg1 = (lua_Alloc) 0 ;
   void *arg2 = (void *) 0 ;
@@ -1000,7 +1051,7 @@ void _wrap_lua_newstate() {
       );
   }
   {
-    AS3_GetScalarFromVar(arg2, ud);
+    AS3_GetScalarFromVar(arg2, ud); 
   }
   result = (lua_State *)lua_newstate(arg1,arg2);
   {
@@ -1597,7 +1648,7 @@ void _wrap_lua_tolstring() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_rawlen(L:Number, idx:int):*")))
+__attribute__((annotate("as3sig:public function _wrap_lua_rawlen(L:Number, idx:int):uint")))
 void _wrap_lua_rawlen() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -1611,16 +1662,8 @@ void _wrap_lua_rawlen() {
   }
   result = lua_rawlen(arg1,arg2);
   {
-    size_t *retval = (size_t *) malloc(sizeof(size_t));
-    memcpy(retval, &result, sizeof(size_t));
-    
-    swig_as3(
-      "var ptr:int = %0;" 
-      "var out = new $astype();"
-      "out.swigCPtr = ptr;"
-      "var asresult = out;"
-      ::"r"(retval)
-      );
+    AS3_DeclareVar(asresult, uint);
+    AS3_CopyScalarToVar(asresult, result);
   }
   {
     AS3_ReturnAS3Var(asresult);
@@ -1680,7 +1723,7 @@ void _wrap_lua_tocfunction() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_touserdata(L:Number, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_touserdata(L:Number, idx:int):Number")))
 void _wrap_lua_touserdata() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -1694,7 +1737,7 @@ void _wrap_lua_touserdata() {
   }
   result = (void *)lua_touserdata(arg1,arg2);
   {
-    AS3_DeclareVar(asresult, int);
+    AS3_DeclareVar(asresult, Number);
     AS3_CopyScalarToVar(asresult, result);
   }
   {
@@ -1726,7 +1769,7 @@ void _wrap_lua_tothread() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_topointer(L:Number, idx:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_topointer(L:Number, idx:int):Number")))
 void _wrap_lua_topointer() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -1740,7 +1783,7 @@ void _wrap_lua_topointer() {
   }
   result = (void *)lua_topointer(arg1,arg2);
   {
-    AS3_DeclareVar(asresult, int);
+    AS3_DeclareVar(asresult, Number);
     AS3_CopyScalarToVar(asresult, result);
   }
   {
@@ -2109,7 +2152,7 @@ void _wrap_lua_pushnumber() {
     AS3_GetScalarFromVar(arg1, L); 
   }
   {
-    AS3_GetScalarFromVar(arg2, n);
+    AS3_GetScalarFromVar(arg2, n); 
   }
   lua_pushnumber(arg1,arg2);
   {
@@ -2130,7 +2173,7 @@ void _wrap_lua_pushinteger() {
     AS3_GetScalarFromVar(arg1, L); 
   }
   {
-    AS3_GetScalarFromVar(arg2, n);
+    AS3_GetScalarFromVar(arg2, n); 
   }
   lua_pushinteger(arg1,arg2);
   {
@@ -2142,7 +2185,7 @@ void _wrap_lua_pushinteger() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_pushlstring(L:Number, s:String, len:*):String")))
+__attribute__((annotate("as3sig:public function _wrap_lua_pushlstring(L:Number, s:String, len:uint):String")))
 void _wrap_lua_pushlstring() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -2155,7 +2198,9 @@ void _wrap_lua_pushlstring() {
   {
     AS3_MallocString(arg2, s);
   }
-  
+  {
+    AS3_GetScalarFromVar(arg3, len); 
+  }
   result = (char *)lua_pushlstring(arg1,(char const *)arg2,arg3);
   {
     free(arg2);
@@ -2330,7 +2375,7 @@ void _wrap_lua_pushboolean() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_pushlightuserdata(L:Number, p:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_pushlightuserdata(L:Number, p:Number):void")))
 void _wrap_lua_pushlightuserdata() {
   lua_State *arg1 = (lua_State *) 0 ;
   void *arg2 = (void *) 0 ;
@@ -2339,7 +2384,7 @@ void _wrap_lua_pushlightuserdata() {
     AS3_GetScalarFromVar(arg1, L); 
   }
   {
-    AS3_GetScalarFromVar(arg2, p);
+    AS3_GetScalarFromVar(arg2, p); 
   }
   lua_pushlightuserdata(arg1,arg2);
   {
@@ -2463,7 +2508,7 @@ void _wrap_lua_geti() {
     AS3_GetScalarFromVar(arg2, idx);
   }
   {
-    AS3_GetScalarFromVar(arg3, n);
+    AS3_GetScalarFromVar(arg3, n); 
   }
   result = (int)lua_geti(arg1,arg2,arg3);
   {
@@ -2513,7 +2558,7 @@ void _wrap_lua_rawgeti() {
     AS3_GetScalarFromVar(arg2, idx);
   }
   {
-    AS3_GetScalarFromVar(arg3, n);
+    AS3_GetScalarFromVar(arg3, n); 
   }
   result = (int)lua_rawgeti(arg1,arg2,arg3);
   {
@@ -2526,7 +2571,7 @@ void _wrap_lua_rawgeti() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_rawgetp(L:Number, idx:int, p:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_rawgetp(L:Number, idx:int, p:Number):int")))
 void _wrap_lua_rawgetp() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -2540,7 +2585,7 @@ void _wrap_lua_rawgetp() {
     AS3_GetScalarFromVar(arg2, idx);
   }
   {
-    AS3_GetScalarFromVar(arg3, p);
+    AS3_GetScalarFromVar(arg3, p); 
   }
   result = (int)lua_rawgetp(arg1,arg2,(void const *)arg3);
   {
@@ -2578,7 +2623,7 @@ void _wrap_lua_createtable() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_newuserdata(L:Number, sz:*):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_newuserdata(L:Number, sz:uint):Number")))
 void _wrap_lua_newuserdata() {
   lua_State *arg1 = (lua_State *) 0 ;
   size_t arg2 ;
@@ -2587,10 +2632,12 @@ void _wrap_lua_newuserdata() {
   {
     AS3_GetScalarFromVar(arg1, L); 
   }
-  
+  {
+    AS3_GetScalarFromVar(arg2, sz); 
+  }
   result = (void *)lua_newuserdata(arg1,arg2);
   {
-    AS3_DeclareVar(asresult, int);
+    AS3_DeclareVar(asresult, Number);
     AS3_CopyScalarToVar(asresult, result);
   }
   {
@@ -2731,7 +2778,7 @@ void _wrap_lua_seti() {
     AS3_GetScalarFromVar(arg2, idx);
   }
   {
-    AS3_GetScalarFromVar(arg3, n);
+    AS3_GetScalarFromVar(arg3, n); 
   }
   lua_seti(arg1,arg2,arg3);
   {
@@ -2777,7 +2824,7 @@ void _wrap_lua_rawseti() {
     AS3_GetScalarFromVar(arg2, idx);
   }
   {
-    AS3_GetScalarFromVar(arg3, n);
+    AS3_GetScalarFromVar(arg3, n); 
   }
   lua_rawseti(arg1,arg2,arg3);
   {
@@ -2789,7 +2836,7 @@ void _wrap_lua_rawseti() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_rawsetp(L:Number, idx:int, p:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_rawsetp(L:Number, idx:int, p:Number):void")))
 void _wrap_lua_rawsetp() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -2802,7 +2849,7 @@ void _wrap_lua_rawsetp() {
     AS3_GetScalarFromVar(arg2, idx);
   }
   {
-    AS3_GetScalarFromVar(arg3, p);
+    AS3_GetScalarFromVar(arg3, p); 
   }
   lua_rawsetp(arg1,arg2,(void const *)arg3);
   {
@@ -2929,7 +2976,7 @@ char *_wrap_lua_load_reader_func_ptr (struct lua_State *arg1, void *arg2, size_t
     AS3_CopyScalarToVar(arg1, arg1);
   }
   {
-    AS3_DeclareVar(arg2, int);
+    AS3_DeclareVar(arg2, Number);
     AS3_CopyScalarToVar(arg2, arg2);
   }
   {
@@ -2946,7 +2993,7 @@ char *_wrap_lua_load_reader_func_ptr (struct lua_State *arg1, void *arg2, size_t
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_load(L:Number, reader:Function, dt:int, chunkname:String, mode:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_load(L:Number, reader:Function, dt:Number, chunkname:String, mode:String):int")))
 void _wrap_lua_load() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_Reader arg2 = (lua_Reader) 0 ;
@@ -2972,7 +3019,7 @@ void _wrap_lua_load() {
       );
   }
   {
-    AS3_GetScalarFromVar(arg3, dt);
+    AS3_GetScalarFromVar(arg3, dt); 
   }
   {
     AS3_MallocString(arg4, chunkname);
@@ -3006,23 +3053,15 @@ int _wrap_lua_dump_writer_func_ptr (struct lua_State *arg1, void const *arg2, si
     AS3_CopyScalarToVar(arg1, arg1);
   }
   {
-    AS3_DeclareVar(arg2, int);
+    AS3_DeclareVar(arg2, Number);
     AS3_CopyScalarToVar(arg2, arg2);
   }
   {
-    size_t *retval = (size_t *) malloc(sizeof(size_t));
-    memcpy(retval, &arg3, sizeof(size_t));
-    
-    swig_as3(
-      "var ptr:int = %0;" 
-      "var out = new $astype();"
-      "out.swigCPtr = ptr;"
-      "var arg3 = out;"
-      ::"r"(retval)
-      );
+    AS3_DeclareVar(arg3, uint);
+    AS3_CopyScalarToVar(arg3, arg3);
   }
   {
-    AS3_DeclareVar(arg4, int);
+    AS3_DeclareVar(arg4, Number);
     AS3_CopyScalarToVar(arg4, arg4);
   }
   inline_as3(
@@ -3035,7 +3074,7 @@ int _wrap_lua_dump_writer_func_ptr (struct lua_State *arg1, void const *arg2, si
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_dump(L:Number, writer:Function, data:int, strip:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_dump(L:Number, writer:Function, data:Number, strip:int):int")))
 void _wrap_lua_dump() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_Writer arg2 = (lua_Writer) 0 ;
@@ -3060,7 +3099,7 @@ void _wrap_lua_dump() {
       );
   }
   {
-    AS3_GetScalarFromVar(arg3, data);
+    AS3_GetScalarFromVar(arg3, data); 
   }
   {
     AS3_GetScalarFromVar(arg4, strip);
@@ -3413,7 +3452,7 @@ void _wrap_lua_len() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_stringtonumber(L:Number, s:String):*")))
+__attribute__((annotate("as3sig:public function _wrap_lua_stringtonumber(L:Number, s:String):uint")))
 void _wrap_lua_stringtonumber() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -3430,16 +3469,8 @@ void _wrap_lua_stringtonumber() {
     free(arg2);
   }
   {
-    size_t *retval = (size_t *) malloc(sizeof(size_t));
-    memcpy(retval, &result, sizeof(size_t));
-    
-    swig_as3(
-      "var ptr:int = %0;" 
-      "var out = new $astype();"
-      "out.swigCPtr = ptr;"
-      "var asresult = out;"
-      ::"r"(retval)
-      );
+    AS3_DeclareVar(asresult, uint);
+    AS3_CopyScalarToVar(asresult, result);
   }
   {
     AS3_ReturnAS3Var(asresult);
@@ -3447,7 +3478,7 @@ void _wrap_lua_stringtonumber() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_getallocf_lua_getallocf_Function(arg1:int, arg2:int, arg3:*, funcPtrArg:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_getallocf_lua_getallocf_Function(arg1:Number, arg2:Number, arg3:uint, arg4:uint, funcPtrArg:int):Number")))
 void _wrap_lua_getallocf_lua_getallocf_Function() {
   void *arg1 = (void *) 0 ;
   void *arg2 = (void *) 0 ;
@@ -3457,16 +3488,21 @@ void _wrap_lua_getallocf_lua_getallocf_Function() {
   void *result ;
   
   {
-    AS3_GetScalarFromVar(arg1, arg1);
+    AS3_GetScalarFromVar(arg1, arg1); 
   }
   {
-    AS3_GetScalarFromVar(arg2, arg2);
+    AS3_GetScalarFromVar(arg2, arg2); 
   }
-  
+  {
+    AS3_GetScalarFromVar(arg3, arg3); 
+  }
+  {
+    AS3_GetScalarFromVar(arg4, arg4); 
+  }
   inline_nonreentrant_as3("%0 = funcPtrArg;" : "=r"(funcPtr));
   result = (void *)funcPtr(arg1,arg2,arg3,arg4);
   {
-    AS3_DeclareVar(asresult, int);
+    AS3_DeclareVar(asresult, Number);
     AS3_CopyScalarToVar(asresult, result);
   }
   AS3_ReturnAS3Var(asresult);
@@ -3511,48 +3547,32 @@ void *_wrap_lua_setallocf_f_func_ptr (void *arg1, void *arg2, size_t arg3, size_
   void *result ;
   
   {
-    AS3_DeclareVar(arg1, int);
+    AS3_DeclareVar(arg1, Number);
     AS3_CopyScalarToVar(arg1, arg1);
   }
   {
-    AS3_DeclareVar(arg2, int);
+    AS3_DeclareVar(arg2, Number);
     AS3_CopyScalarToVar(arg2, arg2);
   }
   {
-    size_t *retval = (size_t *) malloc(sizeof(size_t));
-    memcpy(retval, &arg3, sizeof(size_t));
-    
-    swig_as3(
-      "var ptr:int = %0;" 
-      "var out = new $astype();"
-      "out.swigCPtr = ptr;"
-      "var arg3 = out;"
-      ::"r"(retval)
-      );
+    AS3_DeclareVar(arg3, uint);
+    AS3_CopyScalarToVar(arg3, arg3);
   }
   {
-    size_t *retval = (size_t *) malloc(sizeof(size_t));
-    memcpy(retval, &arg4, sizeof(size_t));
-    
-    swig_as3(
-      "var ptr:int = %0;" 
-      "var out = new $astype();"
-      "out.swigCPtr = ptr;"
-      "var arg4 = out;"
-      ::"r"(retval)
-      );
+    AS3_DeclareVar(arg4, uint);
+    AS3_CopyScalarToVar(arg4, arg4);
   }
   inline_as3(
     "var asresult = f(arg1, arg2, arg3, arg4);"
     );
   {
-    AS3_GetScalarFromVar(result, asresult);
+    AS3_GetScalarFromVar(result, asresult); 
   }
   return result;
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_setallocf(L:Number, f:Function, ud:int):void")))
+__attribute__((annotate("as3sig:public function _wrap_lua_setallocf(L:Number, f:Function, ud:Number):void")))
 void _wrap_lua_setallocf() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_Alloc arg2 = (lua_Alloc) 0 ;
@@ -3575,7 +3595,7 @@ void _wrap_lua_setallocf() {
       );
   }
   {
-    AS3_GetScalarFromVar(arg3, ud);
+    AS3_GetScalarFromVar(arg3, ud); 
   }
   lua_setallocf(arg1,arg2,arg3);
   {
@@ -3891,7 +3911,7 @@ void _wrap_lua_setupvalue() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_lua_upvalueid(L:Number, fidx:int, n:int):int")))
+__attribute__((annotate("as3sig:public function _wrap_lua_upvalueid(L:Number, fidx:int, n:int):Number")))
 void _wrap_lua_upvalueid() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -3909,7 +3929,7 @@ void _wrap_lua_upvalueid() {
   }
   result = (void *)lua_upvalueid(arg1,arg2,arg3);
   {
-    AS3_DeclareVar(asresult, int);
+    AS3_DeclareVar(asresult, Number);
     AS3_CopyScalarToVar(asresult, result);
   }
   {
@@ -4105,7 +4125,7 @@ void _wrap_LUA_ERRFILE() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_checkversion_(L:Number, ver:Number, sz:*):void")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_checkversion_(L:Number, ver:Number, sz:uint):void")))
 void _wrap_luaL_checkversion_() {
   lua_State *arg1 = (lua_State *) 0 ;
   lua_Number arg2 ;
@@ -4115,9 +4135,11 @@ void _wrap_luaL_checkversion_() {
     AS3_GetScalarFromVar(arg1, L); 
   }
   {
-    AS3_GetScalarFromVar(arg2, ver);
+    AS3_GetScalarFromVar(arg2, ver); 
   }
-  
+  {
+    AS3_GetScalarFromVar(arg3, sz); 
+  }
   luaL_checkversion_(arg1,arg2,arg3);
   {
     
@@ -4346,7 +4368,7 @@ void _wrap_luaL_optnumber() {
     AS3_GetScalarFromVar(arg2, arg);
   }
   {
-    AS3_GetScalarFromVar(arg3, def);
+    AS3_GetScalarFromVar(arg3, def); 
   }
   result = (lua_Number)luaL_optnumber(arg1,arg2,arg3);
   {
@@ -4396,7 +4418,7 @@ void _wrap_luaL_optinteger() {
     AS3_GetScalarFromVar(arg2, arg);
   }
   {
-    AS3_GetScalarFromVar(arg3, def);
+    AS3_GetScalarFromVar(arg3, def); 
   }
   result = (lua_Integer)luaL_optinteger(arg1,arg2,arg3);
   {
@@ -4533,7 +4555,7 @@ void _wrap_luaL_setmetatable() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_testudata(L:Number, ud:int, tname:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_testudata(L:Number, ud:int, tname:String):Number")))
 void _wrap_luaL_testudata() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -4554,7 +4576,7 @@ void _wrap_luaL_testudata() {
     free(arg3);
   }
   {
-    AS3_DeclareVar(asresult, int);
+    AS3_DeclareVar(asresult, Number);
     AS3_CopyScalarToVar(asresult, result);
   }
   {
@@ -4563,7 +4585,7 @@ void _wrap_luaL_testudata() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_checkudata(L:Number, ud:int, tname:String):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_checkudata(L:Number, ud:int, tname:String):Number")))
 void _wrap_luaL_checkudata() {
   lua_State *arg1 = (lua_State *) 0 ;
   int arg2 ;
@@ -4584,7 +4606,7 @@ void _wrap_luaL_checkudata() {
     free(arg3);
   }
   {
-    AS3_DeclareVar(asresult, int);
+    AS3_DeclareVar(asresult, Number);
     AS3_CopyScalarToVar(asresult, result);
   }
   {
@@ -4840,7 +4862,7 @@ void _wrap_luaL_loadfilex() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_loadbufferx(L:Number, buff:String, sz:*):int")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_loadbufferx(L:Number, buff:String, sz:uint, name:String, mode:String):int")))
 void _wrap_luaL_loadbufferx() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -4855,10 +4877,24 @@ void _wrap_luaL_loadbufferx() {
   {
     AS3_MallocString(arg2, buff);
   }
-  
+  {
+    AS3_GetScalarFromVar(arg3, sz); 
+  }
+  {
+    AS3_MallocString(arg4, name);
+  }
+  {
+    AS3_MallocString(arg5, mode);
+  }
   result = (int)luaL_loadbufferx(arg1,(char const *)arg2,arg3,(char const *)arg4,(char const *)arg5);
   {
     free(arg2);
+  }
+  {
+    free(arg4);
+  }
+  {
+    free(arg5);
   }
   {
     AS3_DeclareVar(asresult, int);
@@ -5143,7 +5179,7 @@ void _wrap_luaL_buffinit() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_prepbuffsize(B:int, sz:*):String")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_prepbuffsize(B:int, sz:uint):String")))
 void _wrap_luaL_prepbuffsize() {
   luaL_Buffer *arg1 = (luaL_Buffer *) 0 ;
   size_t arg2 ;
@@ -5152,7 +5188,9 @@ void _wrap_luaL_prepbuffsize() {
   {
     AS3_GetScalarFromVar(arg1, B);
   }
-  
+  {
+    AS3_GetScalarFromVar(arg2, sz); 
+  }
   result = (char *)luaL_prepbuffsize(arg1,arg2);
   {
     int len = strlen(result);
@@ -5165,7 +5203,7 @@ void _wrap_luaL_prepbuffsize() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_addlstring(B:int, s:String, l:*):void")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_addlstring(B:int, s:String, l:uint):void")))
 void _wrap_luaL_addlstring() {
   luaL_Buffer *arg1 = (luaL_Buffer *) 0 ;
   char *arg2 = (char *) 0 ;
@@ -5177,7 +5215,9 @@ void _wrap_luaL_addlstring() {
   {
     AS3_MallocString(arg2, s);
   }
-  
+  {
+    AS3_GetScalarFromVar(arg3, l); 
+  }
   luaL_addlstring(arg1,(char const *)arg2,arg3);
   {
     free(arg2);
@@ -5249,7 +5289,7 @@ void _wrap_luaL_pushresult() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_pushresultsize(B:int, sz:*):void")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_pushresultsize(B:int, sz:uint):void")))
 void _wrap_luaL_pushresultsize() {
   luaL_Buffer *arg1 = (luaL_Buffer *) 0 ;
   size_t arg2 ;
@@ -5257,7 +5297,9 @@ void _wrap_luaL_pushresultsize() {
   {
     AS3_GetScalarFromVar(arg1, B);
   }
-  
+  {
+    AS3_GetScalarFromVar(arg2, sz); 
+  }
   luaL_pushresultsize(arg1,arg2);
   {
     
@@ -5268,7 +5310,7 @@ void _wrap_luaL_pushresultsize() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_luaL_buffinitsize(L:Number, B:int, sz:*):String")))
+__attribute__((annotate("as3sig:public function _wrap_luaL_buffinitsize(L:Number, B:int, sz:uint):String")))
 void _wrap_luaL_buffinitsize() {
   lua_State *arg1 = (lua_State *) 0 ;
   luaL_Buffer *arg2 = (luaL_Buffer *) 0 ;
@@ -5281,7 +5323,9 @@ void _wrap_luaL_buffinitsize() {
   {
     AS3_GetScalarFromVar(arg2, B);
   }
-  
+  {
+    AS3_GetScalarFromVar(arg3, sz); 
+  }
   result = (char *)luaL_buffinitsize(arg1,arg2,arg3);
   {
     int len = strlen(result);
@@ -5692,6 +5736,41 @@ void _wrap_luaL_openlibs() {
   }
   {
     AS3_ReturnAS3Var(undefined);
+  }
+}
+
+
+__attribute__((annotate("as3sig:public function _wrap_LUA_FLASHLIBNAME():String")))
+void _wrap_LUA_FLASHLIBNAME() {
+  char *result ;
+  
+  result = "flash";
+  {
+    int len = strlen(result);
+    AS3_DeclareVar(asresult, String);
+    AS3_CopyCStringToVar(asresult, result, len);
+  }
+  {
+    AS3_ReturnAS3Var(asresult);
+  }
+}
+
+
+__attribute__((annotate("as3sig:public function _wrap_luaopen_flash(L:Number):int")))
+void _wrap_luaopen_flash() {
+  lua_State *arg1 = (lua_State *) 0 ;
+  int result ;
+  
+  {
+    AS3_GetScalarFromVar(arg1, L); 
+  }
+  result = (int)luaopen_flash(arg1);
+  {
+    AS3_DeclareVar(asresult, int);
+    AS3_CopyScalarToVar(asresult, result);
+  }
+  {
+    AS3_ReturnAS3Var(asresult);
   }
 }
 

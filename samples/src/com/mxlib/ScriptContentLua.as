@@ -1,5 +1,6 @@
 package com.mxlib
 {
+	//
 	public class ScriptContentLua extends LuaScript implements ScriptContentI
 	{
 		public function ScriptContentLua()
