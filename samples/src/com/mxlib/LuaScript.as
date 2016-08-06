@@ -5,7 +5,133 @@ package com.mxlib
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 	import flash.utils.Endian;
+
+	//
+	import mxlib.Lua;
+	import mxlib.Lua_State;
 	
+	//
+	public class LuaScript
+	{	
+		//
+		private var _lua_state:LuaStateT
+		
+		private var _text:String;
+		
+		private var _has_loaded_successed:Boolean;
+		private var _has_doing_successed:Boolean;
+		private var _has_calling_successed:Boolean;		
+		public function get has_loaded_successed() : Boolean { return this._has_loaded_successed; }		
+		public function get has_doing_successed() : Boolean { return this._has_doing_successed; }
+		public function get has_calling_successed() : Boolean { return this._has_calling_successed; }
+		
+		//
+		public function LuaScript()
+		{
+			this._lua_state = new LuaStateT(true);
+			
+			//
+			trace(Lua.LUA_VERSION);
+			trace(Lua.LUA_COPYRIGHT);
+		}
+		
+		public function dispose() : void
+		{
+			if(this._lua_state)
+			{
+				this._lua_state.dispose();
+				this._lua_state = null;
+			}
+		}
+		
+		public function loadData(bytes:ByteArray) : Boolean
+		{
+			var text:String = "";
+			
+			bytes.endian = Endian.LITTLE_ENDIAN;
+			var flag:uint = bytes.readUnsignedInt() & 0x00FFFFFF;
+			if(flag == 0xBFBBEF)
+			{ 
+				text = bytes.readMultiByte(-1, "utf8"); //UTF8
+			}
+			else
+			{
+				text = bytes.readMultiByte(-1, "gb2312"); //ANSI
+			}
+			
+			
+			return loadText(text);
+		}
+		
+		public function loadText(text:String) : Boolean
+		{
+			this._has_loaded_successed = false;
+			this._has_doing_successed = false;
+			
+			this._text = text;
+			
+			if(!this.preLoad())
+			{
+				this._text = "";
+				return false; 
+			}
+			
+//			//
+//			var stack:int 	= Lua.lua_gettop(this._lua_state);
+//			var result:int	= Lua.luaL_loadstring(this._lua_state, this._text);
+//			if(result != 0)
+//			{
+//				AS3_Logout("[LuaScript] luaL_loadstring fail, code:" + result + ", desc:" + Lua.lua_tolstring(this._lua_state, -1, 0));
+//				
+//				// 錯誤日誌緣故需要彈出1個元素
+//				Lua.lua_pop(this._lua_state, 1);
+//				return false;
+//			}
+//			
+//			stack = Lua.lua_gettop(this._lua_state);
+			
+			//
+			if(!this.lastLoad())
+			{ return false; }
+			
+			this._has_loaded_successed = true;
+			return true;
+		}
+		
+		protected virtual function preLoad() : Boolean
+		{
+//			var stack:int 	= Lua.lua_gettop(this._lua_state);
+//			
+//			//			// 註冊自己到腳本狀態機
+//			//			Lua.luaL_newmetatable(this._lua_state, "LuaScript");
+//			//			Lua.lua_pushstring(this._lua_state, "__index");		//設置表項
+//			//			Lua.lua_pushvalue(this._lua_state, -2); 
+//			//			Lua.lua_settable(this._lua_state, -3);
+//			//			
+//			//			//
+//			//			Lua.lua_pop(this._lua_state, 1);
+//			
+//			//
+//			this.lua_pushflashobject(this);
+//			Lua.lua_setglobal(this._lua_state, "__script");
+//			
+//			stack	= Lua.lua_gettop(this._lua_state);
+			return true;
+		}
+		
+		
+		protected virtual function lastLoad() : Boolean
+		{
+			return true;
+		}
+		
+		protected virtual function callbackLog(text:String) : void
+		{
+			trace(text);
+		}
+	};
+	
+	/*
 	import Lua;
 	
 	import sample.lua.CModule;
@@ -285,4 +411,5 @@ package com.mxlib
 			this.callbackLog("[LuaScript] Logout :" + text + "\n");
 		}
 	}
+	*/
 }

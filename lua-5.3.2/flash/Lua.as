@@ -20,6 +20,8 @@ package mxlib
 		public function get real_LuaState() : Number { return this._real_LuaState;  }
 		public function Lua_State(open_all:Boolean = false)
 		{
+			trace("[Lua_State] ------ init ------");
+
 			this._real_LuaState = Lua.luaL_newstate();
 			if(open_all)
 			{ 
@@ -34,7 +36,7 @@ package mxlib
 				Lua.luaopen_package(this._real_LuaState);
 				Lua.luaopen_string(this._real_LuaState);
 
-				trace("[Lua_State] open mini librarys.");
+				trace("[Lua_State] open min librarys.");
 			}
 		}
 
@@ -45,6 +47,8 @@ package mxlib
 				Lua.lua_close(this._real_LuaState);
 				this._real_LuaState = 0;
 			}
+
+			trace("[Lua_State] ------ free ------");
 		}
 	};
 
