@@ -17,6 +17,10 @@ package
 			//
 			ScriptRead.Singleton.load("data/helloworld.lua", new ScriptContentLua(), function () : void {
 			});
+			
+			ScriptRead.Singleton.load("data/helloflash.lua", new ScriptContentLua(), function () : void {
+			});
+						
 		}
 	}
 }

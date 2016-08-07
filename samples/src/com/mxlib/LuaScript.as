@@ -27,7 +27,7 @@ package com.mxlib
 		//
 		public function LuaScript()
 		{
-			this._lua_state = new LuaStateT(true);
+			this._lua_state = new LuaStateT();
 			
 			//
 			trace(Lua.LUA_VERSION);
@@ -113,7 +113,7 @@ package com.mxlib
 		public function doing() : Boolean
 		{	
 			this._has_doing_successed = false;
-			Lua.lua_pop(this._lua_state.real_LuaState, 1);
+
 			try
 			{
 				//
@@ -134,7 +134,7 @@ package com.mxlib
 				}
 				
 				//
-				stack = Lua.lua_gettop(this._lua_state.real_LuaState)
+				stack = Lua.lua_gettop(this._lua_state.real_LuaState);				
 			}
 			catch(e:Error)
 			{

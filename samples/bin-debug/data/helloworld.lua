@@ -1,5 +1,5 @@
 --
-flash:trace("Hello world");
+print(string.format("%s Hello world %s", "_T", "T_"));
 
 -- Test function.
 function Helloworld()

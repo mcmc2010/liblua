@@ -1480,12 +1480,60 @@ public class Lua {
 		_wrap_luaL_openlibs(L);
 	}
 
+	public static function lua_pop(L:Number, n:int):void {
+		_wrap_lua_pop(L, n);
+	}
+
+	public static function lua_tonumber(L:Number, i:int):Number {
+		return _wrap_lua_tonumber(L, i);
+	}
+
+	public static function lua_tostring(L:Number, i:int):String {
+		return _wrap_lua_tostring(L, i);
+	}
+
+	public static function lua_tointeger(L:Number, i:int):int {
+		return _wrap_lua_tointeger(L, i);
+	}
+
+	public static function lua_newtable(L:Number):void {
+		_wrap_lua_newtable(L);
+	}
+
+	public static function lua_call(L:Number, n:int, r:int):void {
+		_wrap_lua_call(L, n, r);
+	}
+
+	public static function lua_pcall(L:Number, n:int, r:int, f:int):int {
+		return _wrap_lua_pcall(L, n, r, f);
+	}
+
+	public static function luaL_loadfile(L:Number, f:String):int {
+		return _wrap_luaL_loadfile(L, f);
+	}
+
+	public static function flash_pushreference(L:Number):int {
+		return _wrap_flash_pushreference(L);
+	}
+
+	public static function flash_pushreferencex(L:Number, name:String):int {
+		return _wrap_flash_pushreferencex(L, name);
+	}
+
 	public static function get LUA_FLASHLIBNAME():String{
 		return _wrap_LUA_FLASHLIBNAME();
 	}
 
 	public static function luaopen_flash(L:Number):int {
 		return _wrap_luaopen_flash(L);
+	}
+
+	public static function luaL_open_all_libs(L:Number):void {
+		_wrap_luaL_open_all_libs(L);
+	}
+
+	public static function luaL_open_min_libs(L:Number):void {
+		_wrap_luaL_open_min_libs(L);
 	}
 
 }

@@ -18,25 +18,20 @@ package mxlib
 	{
 		private var _real_LuaState:Number = 0;
 		public function get real_LuaState() : Number { return this._real_LuaState;  }
-		public function Lua_State(open_all:Boolean = false)
+		public function Lua_State(open_all:Boolean = true)
 		{
 			trace("[Lua_State] ------ init ------");
 
 			this._real_LuaState = Lua.luaL_newstate();
 			if(open_all)
 			{ 
-				Lua.luaL_openlibs(this._real_LuaState); 
-				//Lua.luaopen_flash(this._real_LuaState);
+				Lua.luaL_open_all_libs(this._real_LuaState); 
 				
 				trace("[Lua_State] open all librarys.");
 			}
 			else
 			{
-				Lua.luaopen_base(this._real_LuaState);
-				Lua.luaopen_math(this._real_LuaState);
-				Lua.luaopen_package(this._real_LuaState);
-				Lua.luaopen_string(this._real_LuaState);
-				//Lua.luaopen_flash(this._real_LuaState);
+				Lua.luaL_open_min_libs(this._real_LuaState);
 
 				trace("[Lua_State] open min librarys.");
 			}
@@ -262,30 +257,13 @@ package mxlib
 		{
 			_wrap_luaL_openlibs(L);
 		}
-
-		public static function luaopen_base(L:Number) : int 
+		public static function luaL_open_all_libs(L:Number) : void 
 		{
-			return _wrap_luaopen_base(L);
+			_wrap_luaL_open_all_libs(L);
 		}
-		public static function luaopen_string(L:Number) : int 
+		public static function luaL_open_min_libs(L:Number) : void 
 		{
-			return _wrap_luaopen_string(L);
-		}
-		public static function luaopen_math(L:Number) : int 
-		{
-			return _wrap_luaopen_math(L);
-		}
-		public static function luaopen_debug(L:Number) : int 
-		{
-			return _wrap_luaopen_debug(L);
-		}
-		public static function luaopen_package(L:Number) : int 
-		{
-			return _wrap_luaopen_package(L);
-		}
-		public static function luaopen_flash(L:Number) : int 
-		{
-			return _wrap_luaopen_flash(L);
+			_wrap_luaL_open_min_libs(L);
 		}
 
 		//
