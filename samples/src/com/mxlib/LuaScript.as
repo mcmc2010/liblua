@@ -8,12 +8,14 @@ package com.mxlib
 	
 	import mxlib.Lua;
 	import mxlib.Lua_State;
+	import mxlib.lua.__lua_state_list;
 	
 	//
 	public class LuaScript
 	{	
 		//
 		private var _lua_state:LuaStateT
+		public function get lua_state() : LuaStateT { return this._lua_state; }
 		
 		private var _text:String;
 		
@@ -28,7 +30,7 @@ package com.mxlib
 		public function LuaScript()
 		{
 			this._lua_state = new LuaStateT();
-			
+
 			//
 			trace(Lua.LUA_VERSION);
 			trace(Lua.LUA_COPYRIGHT);
@@ -147,23 +149,97 @@ package com.mxlib
 			return true;
 		}
 		
+		public function calling(func:String, params:Array, results:Array = null, result_count:int = 0) : Boolean
+		{
+			this._has_calling_successed = false;
+			
+			try
+			{
+				//
+				var stack:int 		= Lua.lua_gettop(this._lua_state.real_LuaState);
+				var param_count:int	= 0;
+				
+				Lua.lua_getglobal(this._lua_state.real_LuaState, func); //函數名
+				if(params != null)
+				{
+					for(var i:int = 0; i < params.length; i ++)
+					{
+						if(params[i] != null)
+						{
+							switch(( params[i].type as String ).toLowerCase())
+							{
+								case "nil":
+								case "null": 	{ Lua.lua_pushnil(this._lua_state.real_LuaState); 		param_count ++; break; }
+								case "int": 	{ Lua.lua_pushinteger(this._lua_state.real_LuaState, 	params[i].data); 	param_count ++; break; }
+								case "float":
+								case "number": 	{ Lua.lua_pushnumber(this._lua_state.real_LuaState, 	params[i].data); 	param_count ++; break; }
+								case "string": 	{ Lua.lua_pushstring(this._lua_state.real_LuaState, 	params[i].data); 	param_count ++; break; }	
+//								case "object": 	
+//								{ 
+//									this._lua_state.luaAS3_newclassmeta(params[i].data);
+//									this._lua_state.luaAS3_pushobject(params[i].data, "");							
+//									param_count ++; 
+//									break; 
+//								}									
+							}
+						}
+					}
+				}
+				
+				Lua.lua_call(this._lua_state.real_LuaState, param_count, result_count);
+				
+				// 取結果的時候注意,返回結果順序是反著的
+				if(results != null && result_count > 0)
+				{
+					stack = Lua.lua_gettop(this._lua_state.real_LuaState);
+					
+					var result_index:int = 0;
+					while(stack > result_index)
+					{
+						if(Lua.lua_isnumber(this._lua_state.real_LuaState, -(result_index + 1)))
+						{
+							results.unshift({type:"number",data:Lua.lua_tonumber(this._lua_state.real_LuaState, -(result_index + 1))});
+						}
+						else if(Lua.lua_isstring(this._lua_state.real_LuaState, -(result_index + 1)))
+						{
+							results.unshift({type:"string",data:Lua.lua_tostring(this._lua_state.real_LuaState, -(result_index + 1))});
+						}
+						
+						result_index ++;
+					}
+					
+					Lua.lua_pop(this._lua_state.real_LuaState, result_index);
+				}
+				else
+				{
+					//如果沒有獲取返回值,但是又有返回需要處理:
+					while((stack = Lua.lua_gettop(this._lua_state.real_LuaState)) > 0)
+					{
+						Lua.lua_pop(this._lua_state.real_LuaState, 1); //將返回值逐個彈出;
+					}
+				}
+				
+				//
+				stack = Lua.lua_gettop(this._lua_state.real_LuaState)
+			}
+			catch(e:Error)
+			{
+				trace("Exception: " + e.message);
+				return false;
+			}
+			
+			//
+			this._has_calling_successed = true;
+			return true;
+		}
+		
 		protected virtual function preLoad() : Boolean
 		{
 			var stack:int 	= Lua.lua_gettop(this._lua_state.real_LuaState);
 		
-			//			// 註冊自己到腳本狀態機
-			//			Lua.luaL_newmetatable(this._lua_state, "LuaScript");
-			//			Lua.lua_pushstring(this._lua_state, "__index");		//設置表項
-			//			Lua.lua_pushvalue(this._lua_state, -2); 
-			//			Lua.lua_settable(this._lua_state, -3);
-			//			
-			//			//
-			//			Lua.lua_pop(this._lua_state, 1);
-			
-			//
-//			this.lua_pushflashobject(this);
-//			Lua.lua_setglobal(this._lua_state, "__script");
-		
+			this._lua_state.luaAS3_newclassmetaByObject(this);
+			this._lua_state.luaAS3_pushobject(this, "__script", null);
+
 			stack	= Lua.lua_gettop(this._lua_state.real_LuaState);
 			return true;
 		}

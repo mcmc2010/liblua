@@ -1512,6 +1512,10 @@ public class Lua {
 		return _wrap_luaL_loadfile(L, f);
 	}
 
+	public static function luaL_getmetatable(L:Number, n:String):int {
+		return _wrap_luaL_getmetatable(L, n);
+	}
+
 	public static function flash_newclassmeta(L:Number, name:String):void {
 		_wrap_flash_newclassmeta(L, name);
 	}

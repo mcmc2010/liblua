@@ -121,6 +121,7 @@ _wrap_luaL_error
 _wrap_luaL_execresult
 _wrap_luaL_fileresult
 _wrap_luaL_getmetafield
+_wrap_luaL_getmetatable
 _wrap_luaL_getsubtable
 _wrap_luaL_gsub
 _wrap_luaL_len
@@ -295,6 +296,7 @@ luaL_error
 luaL_execresult
 luaL_fileresult
 luaL_getmetafield
+luaL_getmetatable
 luaL_getsubtable
 luaL_gsub
 luaL_len

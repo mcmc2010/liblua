@@ -31,6 +31,8 @@ LUA_API int   			lua_pcall(lua_State *L, int n, int r, int f);
 //lualib
 #undef luaL_loadfile
 LUA_API int 			luaL_loadfile(lua_State *L, const char *f);
+#undef luaL_getmetatable
+LUA_API int 			luaL_getmetatable(lua_State *L, const char *n);
 
 //flash 
 LUA_API void			flash_newclassmeta(lua_State *L, const char *name);

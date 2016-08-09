@@ -18,12 +18,17 @@ package mxlib
 	//
 	import com.adobe.flascc.swig.*;
 	import flash.utils.ByteArray;
+	import flash.utils.Dictionary;
+	import flash.utils.getQualifiedClassName;
 
 	// 用來存放LUA的狀態機
 	public class Lua_State
 	{
 		private var _real_LuaState:Number = 0;
 		public function get real_LuaState() : Number { return this._real_LuaState;  }
+		private var _real_ObjectList:Dictionary = new Dictionary();
+		public function get real_ObjectList() : Dictionary { return this._real_ObjectList; }
+
 		public function Lua_State(open_all:Boolean = true)
 		{
 			trace("[Lua_State] ------ init ------");
@@ -56,9 +61,38 @@ package mxlib
 				//
 				Lua.lua_close(this._real_LuaState);
 				this._real_LuaState = 0;
+
+				//
+				this._real_ObjectList = null;
 			}
 
 			trace("[Lua_State] ------ free ------");
+		}
+
+		public function luaAS3_newclassmeta(type_name:String) : void
+		{
+			Lua.flash_newclassmeta(this.real_LuaState, type_name);
+
+			trace("[Lua_State] : new class meta : " + type_name);
+		}
+		
+		public function luaAS3_newclassmetaByObject(object_refer:*) : void
+		{
+			var type_name:String = getQualifiedClassName(object_refer);
+			this.luaAS3_newclassmeta(type_name);
+		}
+			
+		public function luaAS3_pushobject(object_refer:*, object_name:String, type_name:String = null) : void
+		{
+			var type:String = (type_name != null ? type_name : getQualifiedClassName(object_refer));
+			var data:Number = Lua.flash_pushreference(this.real_LuaState, type);
+			if(data != 0)
+			{
+				this._real_ObjectList[data] = object_refer;
+			}
+			Lua.lua_setglobal(this.real_LuaState, object_name);
+
+			trace("[Lua_State] : new class meta : " + type + ":-> object : " + object_name);
 		}
 	};
 
@@ -302,15 +336,28 @@ package mxlib
 			return (luaL_loadstring(L, s) || lua_pcall(L, 0, LUA_MULTRET, 0));
 		}	
 
+		public static function luaL_newmetatable(L:Number, name:String) : int
+		{
+			return _wrap_luaL_newmetatable(L, name);
+		}
+		public static function luaL_getmetatable(L:Number, name:String) : int
+		{
+			return _wrap_luaL_getmetatable(L, name);
+		}
+		public static function luaL_setmetatable(L:Number, name:String) : void 
+		{
+			_wrap_luaL_setmetatable(L, name);
+		}
+
 
 		//
-		public static function flash_pushreference(L:Number) : int 
+		public static function flash_newclassmeta(L:Number, name:String) : int 
 		{
-			return _wrap_flash_pushreference(L);
-		}
-		public static function flash_pushreferencex(L:Number, name:String) : int 
+			return _wrap_flash_newclassmeta(L, name);
+		}	
+		public static function flash_pushreference(L:Number, name:String) : int 
 		{
-			return _wrap_flash_pushreferencex(L, name);
+			return _wrap_flash_pushreference(L, name);
 		}		
 	};
 };

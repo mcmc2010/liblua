@@ -5865,6 +5865,32 @@ void _wrap_luaL_loadfile() {
 }
 
 
+__attribute__((annotate("as3sig:public function _wrap_luaL_getmetatable(L:Number, n:String):int")))
+void _wrap_luaL_getmetatable() {
+  lua_State *arg1 = (lua_State *) 0 ;
+  char *arg2 = (char *) 0 ;
+  int result ;
+  
+  {
+    AS3_GetScalarFromVar(arg1, L); 
+  }
+  {
+    AS3_MallocString(arg2, n);
+  }
+  result = (int)luaL_getmetatable(arg1,(char const *)arg2);
+  {
+    free(arg2);
+  }
+  {
+    AS3_DeclareVar(asresult, int);
+    AS3_CopyScalarToVar(asresult, result);
+  }
+  {
+    AS3_ReturnAS3Var(asresult);
+  }
+}
+
+
 __attribute__((annotate("as3sig:public function _wrap_flash_newclassmeta(L:Number, name:String):void")))
 void _wrap_flash_newclassmeta() {
   lua_State *arg1 = (lua_State *) 0 ;
