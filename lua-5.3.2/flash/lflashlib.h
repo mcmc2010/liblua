@@ -33,8 +33,8 @@ LUA_API int   			lua_pcall(lua_State *L, int n, int r, int f);
 LUA_API int 			luaL_loadfile(lua_State *L, const char *f);
 
 //flash 
-LUA_API int 			flash_pushreference(lua_State *L);
-LUA_API int 			flash_pushreferencex(lua_State *L, const char *name);
+LUA_API void			flash_newclassmeta(lua_State *L, const char *name);
+LUA_API void*			flash_pushreference(lua_State *L, const char *name);
 
 #define LUA_FLASHLIBNAME	"flash"
 LUAMOD_API int 	(luaopen_flash) (lua_State *L);

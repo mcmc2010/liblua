@@ -13,12 +13,16 @@
 #define lflashlib_c
 #define LUA_LIB
 
+#include <stdlib.h>
+#include <memory.h>
+
 #include "AS3/AS3.h"
 #include "lua.h"
 
 #include "lauxlib.h"
 #include "lualib.h"
 #include "lflashlib.h"
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------
 //lua
@@ -115,20 +119,35 @@ LUALIB_API void luaL_open_min_libs (lua_State *L)
 
 //----------------------------------------------------------------------------------------------------------------------------------------
 //flash
-LUA_API int flash_pushreferencex(lua_State *L, const char *name)
+LUA_API void	flash_newclassmeta(lua_State *L, const char *name)
+{
+	luaL_newmetatable(L, name);	
+	lua_pushstring(L, "__index");
+	lua_pushvalue(L, -2);
+	lua_settable(L, -3);
+	lua_pop(L, 1);	
+}
+
+LUA_API void* flash_pushreference(lua_State *L, const char *name)
 {
 	// Push the new userdata onto the stack
-	int result = (int)lua_newuserdata(L, 4);
+	void* result = lua_newuserdata(L, sizeof(void *));
 	luaL_getmetatable(L, name);
 	lua_setmetatable(L, -2);
 	return result;
 }
 
-LUA_API int flash_pushreference(lua_State *L)
+// class_name : the class name and script table name.
+// object_name : the object name is script object name.
+LUA_API void flash_pushobject(lua_State *L, const char* class_name, const char* object_name, void* object)
 {
-	return flash_pushreferencex(L, "flash");
+	void*	data = flash_pushreference(L, class_name);
+	if(data != NULL)
+	{
+		memcpy(data, &object, sizeof(void*));
+		lua_setglobal(L, object_name);
+	}
 }
-
 
 //----------------------------------------------------------------------------------------------------------------------------------------
 //
@@ -146,6 +165,15 @@ static int flash_trace (lua_State *L)
 	inline_nonreentrant_as3("trace(str);\n");
 	return 1;
 }
+
+static int flash_gettimer (lua_State *L) 
+{
+	int result = 0;
+	inline_nonreentrant_as3("import flash.utils.getTimer;\n%0 = getTimer();\n" : "=r"(result));
+	lua_pushinteger(L, result);
+	return 1;
+}
+
 /*
 //
 static const luaL_Reg flashmeta[] = 
@@ -161,7 +189,8 @@ static const luaL_Reg flashmeta[] =
 //
 static const luaL_Reg flashlib[] = 
 {
-	{"trace", flash_trace},
+	{"trace", 	flash_trace},
+	{"gettimer", 	flash_gettimer},	
 	{NULL, NULL}
 };
 
@@ -171,14 +200,5 @@ LUAMOD_API int luaopen_flash (lua_State *L)
 	luaL_newlib(L, flashlib);
 
 	//
-	// luaL_newmetatable(L, "flash");
-	// lua_pushstring(L, "__index");
-	// lua_pushvalue(L, -2);
-	// lua_settable(L, -3);
-
-	//luaL_setfuncs(L, flashmeta, 0);
-
-	//
-//	lua_pop(L, 1);
 	return 1;
 }

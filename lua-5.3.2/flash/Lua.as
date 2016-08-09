@@ -4,6 +4,12 @@ package com.adobe.flascc.swig
 	import com.adobe.flascc.CModule;
 };
 
+package  mxlib.lua
+{
+	import flash.utils.Dictionary;
+	public const __lua_state_list:Dictionary = new Dictionary();
+};
+
 package mxlib
 {
 	// 必須加這個，C++的代理函數被放在這個包下面
@@ -35,12 +41,19 @@ package mxlib
 
 				trace("[Lua_State] open min librarys.");
 			}
+
+			// add lua state machine to global list.
+			__lua_state_list[_real_LuaState] = this;
 		}
 
 		public function dispose() : void
 		{
 			if(this._real_LuaState != 0)
 			{
+				if(__lua_state_list[_real_LuaState] != null)
+				{ delete __lua_state_list[_real_LuaState]; }
+
+				//
 				Lua.lua_close(this._real_LuaState);
 				this._real_LuaState = 0;
 			}

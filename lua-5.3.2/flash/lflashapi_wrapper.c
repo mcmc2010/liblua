@@ -5865,30 +5865,10 @@ void _wrap_luaL_loadfile() {
 }
 
 
-__attribute__((annotate("as3sig:public function _wrap_flash_pushreference(L:Number):int")))
-void _wrap_flash_pushreference() {
-  lua_State *arg1 = (lua_State *) 0 ;
-  int result ;
-  
-  {
-    AS3_GetScalarFromVar(arg1, L); 
-  }
-  result = (int)flash_pushreference(arg1);
-  {
-    AS3_DeclareVar(asresult, int);
-    AS3_CopyScalarToVar(asresult, result);
-  }
-  {
-    AS3_ReturnAS3Var(asresult);
-  }
-}
-
-
-__attribute__((annotate("as3sig:public function _wrap_flash_pushreferencex(L:Number, name:String):int")))
-void _wrap_flash_pushreferencex() {
+__attribute__((annotate("as3sig:public function _wrap_flash_newclassmeta(L:Number, name:String):void")))
+void _wrap_flash_newclassmeta() {
   lua_State *arg1 = (lua_State *) 0 ;
   char *arg2 = (char *) 0 ;
-  int result ;
   
   {
     AS3_GetScalarFromVar(arg1, L); 
@@ -5896,12 +5876,37 @@ void _wrap_flash_pushreferencex() {
   {
     AS3_MallocString(arg2, name);
   }
-  result = (int)flash_pushreferencex(arg1,(char const *)arg2);
+  flash_newclassmeta(arg1,(char const *)arg2);
   {
     free(arg2);
   }
   {
-    AS3_DeclareVar(asresult, int);
+    
+  }
+  {
+    AS3_ReturnAS3Var(undefined);
+  }
+}
+
+
+__attribute__((annotate("as3sig:public function _wrap_flash_pushreference(L:Number, name:String):Number")))
+void _wrap_flash_pushreference() {
+  lua_State *arg1 = (lua_State *) 0 ;
+  char *arg2 = (char *) 0 ;
+  void *result ;
+  
+  {
+    AS3_GetScalarFromVar(arg1, L); 
+  }
+  {
+    AS3_MallocString(arg2, name);
+  }
+  result = (void *)flash_pushreference(arg1,(char const *)arg2);
+  {
+    free(arg2);
+  }
+  {
+    AS3_DeclareVar(asresult, Number);
     AS3_CopyScalarToVar(asresult, result);
   }
   {

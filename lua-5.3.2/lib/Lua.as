@@ -1512,12 +1512,12 @@ public class Lua {
 		return _wrap_luaL_loadfile(L, f);
 	}
 
-	public static function flash_pushreference(L:Number):int {
-		return _wrap_flash_pushreference(L);
+	public static function flash_newclassmeta(L:Number, name:String):void {
+		_wrap_flash_newclassmeta(L, name);
 	}
 
-	public static function flash_pushreferencex(L:Number, name:String):int {
-		return _wrap_flash_pushreferencex(L, name);
+	public static function flash_pushreference(L:Number, name:String):Number {
+		return _wrap_flash_pushreference(L, name);
 	}
 
 	public static function get LUA_FLASHLIBNAME():String{
