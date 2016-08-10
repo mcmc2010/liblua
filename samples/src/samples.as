@@ -12,7 +12,7 @@ package
 		private var _scriptRead:ScriptRead;
 		
 		public var _test_number:Number = 0xFFFF;
-		public var _test_int:Number = 0xEEEE;	
+		public var _test_int:Number = 1122334455;	
 		public var _test_string:String = "DDDD";
 		
 		public function samples()
@@ -21,17 +21,22 @@ package
 			
 			//
 			ScriptRead.Singleton.load("data/helloworld.lua", new ScriptContentLua(), function (e:ScriptEvent) : void {
-				var lua:ScriptContentLua = e.target.content;
-				lua.lua_state.luaAS3_newclassmetaByObject(this);
-				lua.lua_state.luaAS3_pushobject(this, "__this");
-				
-				var results:Array = [];
-				lua.calling("Helloworld", null, results, 2);
 			});
 			
-			ScriptRead.Singleton.load("data/helloflash.lua", new ScriptContentLua(), function () : void {
+			ScriptRead.Singleton.load("data/helloflash.lua", new ScriptContentLua(), function (e:ScriptEvent) : void {
+				var lua:ScriptContentLua = e.target.content;
+				regclass(lua);
+				
+				var results:Array = [];
+				lua.calling("Helloflash", [{type:"string", data:"the as3 string."}], results, 3);
 			});
 						
+		}
+		
+		public function regclass(lua:ScriptContentLua) : void
+		{
+			lua.lua_state.luaAS3_newclassmetaByObject(this);
+			lua.lua_state.luaAS3_newclassobject(this, "__this");
 		}
 	}
 }

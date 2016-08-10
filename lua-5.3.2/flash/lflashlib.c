@@ -23,6 +23,10 @@
 #include "lualib.h"
 #include "lflashlib.h"
 
+// package_as3(
+//   "#package public\n"
+//   "import mxlib.lua.__lua_state_list;\n"
+// );
 
 //----------------------------------------------------------------------------------------------------------------------------------------
 //lua
@@ -159,7 +163,7 @@ LUA_API void flash_pushcppobject(lua_State *L, const char* class_name, const cha
 //
 static int flash_trace (lua_State *L) 
 {
-	size_t 		length 	= 0;
+	size_t 			length 	= 0;
 	const char* 	text 	= luaL_checklstring(L, 1, &length);
 
 	AS3_DeclareVar(str, String);
@@ -184,40 +188,37 @@ static int flash_gettimer (lua_State *L)
 static int flash_getprop (lua_State *L) 
 {
 	int stack = lua_gettop(L);
-	if(lua_type(L, -1) != LUA_TUSERDATA)
+	if(lua_type(L, 1) != LUA_TUSERDATA || lua_type(L, 2) != LUA_TSTRING)
 	{
 		lua_pop(L, stack);
-		return 1; 
+		
+		inline_as3("trace(\"[LuaState] (%0) stack (%1) error.\");" : : "r"(L), "r"(stack));
+		return 1;
 	}
-	if(lua_type(L, -2) == LUA_TSTRING)
-	{
-		lua_pop(L, stack);
-		return 1; 
-	}
-
-	// //
-	// AS3_DeclareVar(lua_state_value_t, Number);
-	// AS3_CopyScalarToVar(lua_state_value_t, L);
 
 	//
-	void*		data	= lua_touserdata(L, -1);
+	void*		data	= lua_touserdata(L, 1);
 
 	//
 	size_t 		length	= 0;
-	const char*	text 	= lua_tolstring(L, -2, &length);
+	const char*	text 	= lua_tolstring(L, 2, &length);
 	AS3_DeclareVar(prop_name, String);
 	AS3_CopyCStringToVar(prop_name, text, length);
-
-	inline_as3(
-		"var lua_state_t:* = mxlib.lua.__lua_state_list[%0];\n"
-		"var prop_name_t:* = lua_state_t.real_ObjectList[%1][prop_name];\n" 
-		"lua_state_t.luaAS3_newclassmetaByObject(prop_name_t);\n"
-		"lua_state_t.luaAS3_pushobject(prop_name_t, prop_name);\n"
-		: : "r"(L), "r"(data)
-	);
 	
 	lua_pop(L, 2);
 
+	//
+	inline_as3("import flash.utils.getQualifiedClassName;\n");
+
+	inline_as3(
+		"var lua_state_t:* = __lua_state_list[%0];\n"
+		"var prop_name_t:* = lua_state_t.real_ObjectList[%1][prop_name];\n" 
+		"var prop_name_type_t:String = getQualifiedClassName(prop_name_t);\n"
+		: : "r"(L), "r"(data)
+	);
+
+	inline_as3("trace(prop_name_type_t);");
+	
 	//
 	return 1;
 }
@@ -225,23 +226,20 @@ static int flash_getprop (lua_State *L)
 static int flash_getnumber (lua_State *L) 
 {
 	int stack = lua_gettop(L);
-	if(lua_type(L, -1) != LUA_TUSERDATA)
+	if(lua_type(L, 1) != LUA_TUSERDATA || lua_type(L, 2) != LUA_TSTRING)
 	{
 		lua_pop(L, stack);
-		return 1; 
-	}
-	if(lua_type(L, -2) == LUA_TSTRING)
-	{
-		lua_pop(L, stack);
-		return 1; 
+		
+		inline_as3("trace(\"[LuaState] (%0) stack (%1) error.\");" : : "r"(L), "r"(stack));
+		return 1;
 	}
 
 	//
-	void*		data	= lua_touserdata(L, -1);
+	void*		data	= lua_touserdata(L, 1);
 
 	//
 	size_t 		length	= 0;
-	const char*	text 	= lua_tolstring(L, -2, &length);
+	const char*	text 	= lua_tolstring(L, 2, &length);
 	AS3_DeclareVar(prop_name, String);
 	AS3_CopyCStringToVar(prop_name, text, length);
 
@@ -250,10 +248,10 @@ static int flash_getnumber (lua_State *L)
   	//
   	lua_Number result = 0;
   	inline_as3(
-		"var lua_state_t:* = mxlib.lua.__lua_state_list[%1];\n"
-		"var prop_name_t:* = lua_state_t.real_ObjectList[%2][prop_name];\n" 
-		"%0 = Number(prop_name_t);\n\n"
-		: "=r"(result): "r"(L), "r"(data)
+	 	"var lua_state_t:* = __lua_state_list[%1];\n"
+	 	"var prop_name_t:* = lua_state_t.real_ObjectList[%2][prop_name];\n" 
+	 	"%0 = Number(prop_name_t);\n\n"
+	 	: "=r"(result): "r"(L), "r"(data)
 	);
 
 	//
@@ -264,23 +262,20 @@ static int flash_getnumber (lua_State *L)
 static int flash_getint (lua_State *L) 
 {
 	int stack = lua_gettop(L);
-	if(lua_type(L, -1) != LUA_TUSERDATA)
+	if(lua_type(L, 1) != LUA_TUSERDATA || lua_type(L, 2) != LUA_TSTRING)
 	{
 		lua_pop(L, stack);
-		return 1; 
-	}
-	if(lua_type(L, -2) == LUA_TSTRING)
-	{
-		lua_pop(L, stack);
-		return 1; 
+		
+		inline_as3("trace(\"[LuaState] (%0) stack (%1) error.\");" : : "r"(L), "r"(stack));
+		return 1;
 	}
 
 	//
-	void*		data	= lua_touserdata(L, -1);
+	void*		data	= lua_touserdata(L, 1);
 
 	//
 	size_t 		length	= 0;
-	const char*	text 	= lua_tolstring(L, -2, &length);
+	const char*	text 	= lua_tolstring(L, 2, &length);
 	AS3_DeclareVar(prop_name, String);
 	AS3_CopyCStringToVar(prop_name, text, length);
 
@@ -289,7 +284,7 @@ static int flash_getint (lua_State *L)
   	//
   	lua_Integer result = 0;
   	inline_as3(
-		"var lua_state_t:* = mxlib.lua.__lua_state_list[%1];\n"
+		"var lua_state_t:* = __lua_state_list[%1];\n"
 		"var prop_name_t:* = lua_state_t.real_ObjectList[%2][prop_name];\n" 
 		"%0 = int(prop_name_t);\n\n"
 		: "=r"(result): "r"(L), "r"(data)
@@ -303,23 +298,20 @@ static int flash_getint (lua_State *L)
 static int flash_getstring (lua_State *L) 
 {
 	int stack = lua_gettop(L);
-	if(lua_type(L, -1) != LUA_TUSERDATA)
+	if(lua_type(L, 1) != LUA_TUSERDATA || lua_type(L, 2) != LUA_TSTRING)
 	{
 		lua_pop(L, stack);
-		return 1; 
-	}
-	if(lua_type(L, -2) == LUA_TSTRING)
-	{
-		lua_pop(L, stack);
-		return 1; 
+		
+		inline_as3("trace(\"[LuaState] (%0) stack (%1) error.\");" : : "r"(L), "r"(stack));
+		return 1;
 	}
 
 	//
-	void*		data	= lua_touserdata(L, -1);
+	void*		data	= lua_touserdata(L, 1);
 
 	//
 	size_t 		length	= 0;
-	const char*	text 	= lua_tolstring(L, -2, &length);
+	const char*	text 	= lua_tolstring(L, 2, &length);
 	AS3_DeclareVar(prop_name, String);
 	AS3_CopyCStringToVar(prop_name, text, length);
 
@@ -328,7 +320,7 @@ static int flash_getstring (lua_State *L)
   	//
   	const char* result = 0;
   	inline_as3(
-		"var lua_state_t:* = mxlib.lua.__lua_state_list[%1];\n"
+		"var lua_state_t:* = __lua_state_list[%1];\n"
 		"var prop_name_t:* = lua_state_t.real_ObjectList[%2][prop_name];\n" 
 		"%0 = CModule.mallocString(prop_name_t);\n\n"
 		: "=r"(result): "r"(L), "r"(data)

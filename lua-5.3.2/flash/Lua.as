@@ -82,7 +82,7 @@ package mxlib
 			this.luaAS3_newclassmeta(type_name);
 		}
 			
-		public function luaAS3_pushobject(object_refer:*, object_name:String, type_name:String = null) : void
+		public function luaAS3_newclassobject(object_refer:*, object_name:String, type_name:String = null) : void
 		{
 			var type:String = (type_name != null ? type_name : getQualifiedClassName(object_refer));
 			var data:Number = Lua.flash_pushreference(this.real_LuaState, type);
@@ -92,7 +92,7 @@ package mxlib
 			}
 			Lua.lua_setglobal(this.real_LuaState, object_name);
 
-			trace("[Lua_State] : new class meta : " + type + ":-> object : " + object_name);
+			trace("[Lua_State] : def class meta : " + type + ":-> object : " + object_name);
 		}
 	};
 

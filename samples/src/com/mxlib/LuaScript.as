@@ -8,7 +8,6 @@ package com.mxlib
 	
 	import mxlib.Lua;
 	import mxlib.Lua_State;
-	import mxlib.lua.__lua_state_list;
 	
 	//
 	public class LuaScript
@@ -188,7 +187,8 @@ package com.mxlib
 				
 				Lua.lua_call(this._lua_state.real_LuaState, param_count, result_count);
 				
-				// 取結果的時候注意,返回結果順序是反著的
+				// 取結果的時候注意,负数返回結果順序是反著的。正数返回结果顺序是顺着的。
+				// 负数时需要用unshift来颠倒压入数据顺序，才能对应返回值。
 				if(results != null && result_count > 0)
 				{
 					stack = Lua.lua_gettop(this._lua_state.real_LuaState);
@@ -196,15 +196,15 @@ package com.mxlib
 					var result_index:int = 0;
 					while(stack > result_index)
 					{
-						if(Lua.lua_isnumber(this._lua_state.real_LuaState, -(result_index + 1)))
+						if(Lua.lua_isnumber(this._lua_state.real_LuaState, (result_index + 1)))
 						{
-							results.unshift({type:"number",data:Lua.lua_tonumber(this._lua_state.real_LuaState, -(result_index + 1))});
+							results.push({type:"number",data:Lua.lua_tonumber(this._lua_state.real_LuaState, (result_index + 1))});
 						}
-						else if(Lua.lua_isstring(this._lua_state.real_LuaState, -(result_index + 1)))
+						else if(Lua.lua_isstring(this._lua_state.real_LuaState, (result_index + 1)))
 						{
-							results.unshift({type:"string",data:Lua.lua_tostring(this._lua_state.real_LuaState, -(result_index + 1))});
+							results.push({type:"string",data:Lua.lua_tostring(this._lua_state.real_LuaState, (result_index + 1))});
 						}
-						
+
 						result_index ++;
 					}
 					
@@ -238,7 +238,7 @@ package com.mxlib
 			var stack:int 	= Lua.lua_gettop(this._lua_state.real_LuaState);
 		
 			this._lua_state.luaAS3_newclassmetaByObject(this);
-			this._lua_state.luaAS3_pushobject(this, "__script", null);
+			this._lua_state.luaAS3_newclassobject(this, "__script", null);
 
 			stack	= Lua.lua_gettop(this._lua_state.real_LuaState);
 			return true;
