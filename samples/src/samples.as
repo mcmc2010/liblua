@@ -14,11 +14,12 @@ package
 		public var _test_number:Number = 0xFFFF;
 		public var _test_int:Number = 1122334455;	
 		public var _test_string:String = "DDDD";
+		public var _test_object:* = null;
 		
 		public function samples()
 		{			
 			this._scriptRead = new ScriptRead();
-			
+
 			//
 			ScriptRead.Singleton.load("data/helloworld.lua", new ScriptContentLua(), function (e:ScriptEvent) : void {
 			});
