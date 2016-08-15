@@ -394,14 +394,14 @@ static int flash_setprop (lua_State *L)
 
 	switch(lua_type(L, 3))
 	{
-		case LUA_TNIL:
-		{
-			inline_as3(
-				"lua_state_t.real_ObjectList[%0][prop_name] = null;\n" 
-				: : "r"(data)
-			);
-			break;
-		}
+		// case LUA_TNIL:
+		// {
+		// 	inline_as3(
+		// 		"lua_state_t.real_ObjectList[%0][prop_name] = null;\n" 
+		// 		: : "r"(data)
+		// 	);
+		// 	break;
+		// }
 		case LUA_TBOOLEAN:
 		{
 			int value = lua_toboolean(L, 3);
@@ -656,7 +656,304 @@ static int flash_asstring (lua_State *L)
 	return 1;
 }
 
+// method calls
+static int flash_call (lua_State *L) 
+{
+	int stack = lua_gettop(L);
+	if(lua_type(L, 1) != LUA_TUSERDATA || lua_type(L, 2) != LUA_TSTRING)
+	{
+		lua_pop(L, stack);
+		
+		inline_as3("trace(\"[LuaState] (%0) stack (%1) error.\");" : : "r"(L), "r"(stack));
+		return 1;
+	}
+
+	//
+	void*		data	= lua_touserdata(L, 1);
+
+	//
+	size_t 		length	= 0;
+	const char*	text 	= lua_tolstring(L, 2, &length);
+	AS3_DeclareVar(func_name, String);
+	AS3_CopyCStringToVar(func_name, text, length);
+
+	//
+	inline_as3( 
+		"var lua_state_t:* = __lua_state_list[%0];\n" 
+		"var param_list_t:Array = [ ];\n"
+		: : "r"(L) 
+	);
+
+	//
+	int 	param_index = 3;
+	while(param_index <= stack)
+	{
+		switch(lua_type(L, param_index))
+		{
+			case LUA_TBOOLEAN:
+			{
+				int value = lua_toboolean(L, param_index);
+				inline_as3( "param_list_t.push(%0);\n" : : "r"(value) );
+				break;
+			}
+			case LUA_TNUMBER:
+			{
+				lua_Number value = lua_tonumber(L, param_index);
+				inline_as3("param_list_t.push(%0);\n" : : "r"(value) );
+				break;
+			}
+			case LUA_TSTRING:
+			{
+				const char* text = lua_tolstring(L, param_index, &length);
+					
+				AS3_DeclareVar(value_text, String);
+				AS3_CopyCStringToVar(value_text, text, length);
+
+				inline_as3("param_list_t.push(value_text);\n" : : );
+				break;
+			}
+			case LUA_TUSERDATA:
+			{
+				void*		value	= lua_touserdata(L, param_index);
+				inline_as3("param_list_t.push(lua_state_t.real_ObjectList[%0]);\n" : : "r"(value));
+				break;
+			}
+			default:
+	        {
+	        	inline_as3("trace(\"[LuaState] unknown type code (\"+ %0 + \") : \" + %1);\n" 
+	        		:  : "r"(param_index), "r"(lua_type(L, param_index)));
+	        	break;
+	        }
+		}
+
+		//
+		param_index ++;
+	}
+
+	//
+	lua_pop(L, stack);
+
+	//
+	void*	result = flash_pushreference(L, FLASH_LOCAL_META_NAME);
+
+	inline_as3(
+		"switch(param_list_t.length) { \n"
+		"  case 0:{ lua_state_t.real_ObjectList[%0] = lua_state_t.real_ObjectList[%1][func_name](); break; }\n"
+		"  case 1:{ lua_state_t.real_ObjectList[%0] = lua_state_t.real_ObjectList[%1][func_name](param_list_t[0]); break; }\n"
+		"  case 2:{ lua_state_t.real_ObjectList[%0] = lua_state_t.real_ObjectList[%1][func_name](param_list_t[0], param_list_t[1]); break; }\n"
+		"  case 3:{ lua_state_t.real_ObjectList[%0] = lua_state_t.real_ObjectList[%1][func_name](param_list_t[0], param_list_t[1], param_list_t[2]); break; }\n"
+		"  case 4:{ lua_state_t.real_ObjectList[%0] = lua_state_t.real_ObjectList[%1][func_name](param_list_t[0], param_list_t[1], param_list_t[2], param_list_t[3]); break; }\n"
+		"  case 5:{ lua_state_t.real_ObjectList[%0] = lua_state_t.real_ObjectList[%1][func_name](param_list_t[0], param_list_t[1], param_list_t[2], param_list_t[3], param_list_t[4]); break; }\n" 
+		"  case 6:{ lua_state_t.real_ObjectList[%0] = lua_state_t.real_ObjectList[%1][func_name](param_list_t[0], param_list_t[1], param_list_t[2], param_list_t[3], param_list_t[4], param_list_t[5]); break; }\n"
+		"  case 7:{ lua_state_t.real_ObjectList[%0] = lua_state_t.real_ObjectList[%1][func_name](param_list_t[0], param_list_t[1], param_list_t[2], param_list_t[3], param_list_t[4], param_list_t[5], param_list_t[6]); break; }\n"
+		"  case 8:{ lua_state_t.real_ObjectList[%0] = lua_state_t.real_ObjectList[%1][func_name](param_list_t[0], param_list_t[1], param_list_t[2], param_list_t[3], param_list_t[4], param_list_t[5], param_list_t[6], param_list_t[7]); break; }\n"
+		"  case 9:{ lua_state_t.real_ObjectList[%0] = lua_state_t.real_ObjectList[%1][func_name](param_list_t[0], param_list_t[1], param_list_t[2], param_list_t[3], param_list_t[4], param_list_t[5], param_list_t[6], param_list_t[7], param_list_t[8]); break; }\n"
+		"};\n" : : "r"(result), "r"(data)
+	);
+
+	//
+	stack = lua_gettop(L);
+//	inline_as3("trace(%0)" : : "r"(stack));
+
+	//
+	return 1;
+}
+
+static int flash_callstatic (lua_State *L) 
+{
+	int stack = lua_gettop(L);
+	if(lua_type(L, 1) != LUA_TSTRING|| lua_type(L, 2) != LUA_TSTRING)
+	{
+		lua_pop(L, stack);
+		
+		inline_as3("trace(\"[LuaState] (%0) stack (%1) error.\");" : : "r"(L), "r"(stack));
+		return 1;
+	}
+
+	//
+	size_t 		length	= 0;
+	const char*	text 	= lua_tolstring(L, 1, &length);
+	AS3_DeclareVar(class_name, String);
+	AS3_CopyCStringToVar(class_name, text, length);
+
+	//
+	text 	= lua_tolstring(L, 2, &length);
+	AS3_DeclareVar(func_name, String);
+	AS3_CopyCStringToVar(func_name, text, length);
+
+	//
+	inline_as3( 
+		"import flash.utils.getDefinitionByName;\n"
+		"var class_value_t:Class = getDefinitionByName(class_name);\n"
+		"var lua_state_t:* = __lua_state_list[%0];\n" 
+		"var param_list_t:Array = [ ];\n"
+		: : "r"(L) 
+	);
+
+	//
+	int 	param_index = 3;
+	while(param_index <= stack)
+	{
+		switch(lua_type(L, param_index))
+		{
+			case LUA_TBOOLEAN:
+			{
+				int value = lua_toboolean(L, param_index);
+				inline_as3( "param_list_t.push(%0);\n" : : "r"(value) );
+				break;
+			}
+			case LUA_TNUMBER:
+			{
+				lua_Number value = lua_tonumber(L, param_index);
+				inline_as3("param_list_t.push(%0);\n" : : "r"(value) );
+				break;
+			}
+			case LUA_TSTRING:
+			{
+				const char* text = lua_tolstring(L, param_index, &length);
+					
+				AS3_DeclareVar(value_text, String);
+				AS3_CopyCStringToVar(value_text, text, length);
+
+				inline_as3("param_list_t.push(value_text);\n" : : );
+				break;
+			}
+			case LUA_TUSERDATA:
+			{
+				void*		value	= lua_touserdata(L, param_index);
+				inline_as3("param_list_t.push(lua_state_t.real_ObjectList[%0]);\n" : : "r"(value));
+				break;
+			}
+			default:
+	        {
+	        	inline_as3("trace(\"[LuaState] unknown type code (\"+ %0 + \") : \" + %1);\n" 
+	        		:  : "r"(param_index), "r"(lua_type(L, param_index)));
+	        	break;
+	        }
+		}
+
+		//
+		param_index ++;
+	}
+
+	//
+	lua_pop(L, stack);
+
+	//
+	void*	result = flash_pushreference(L, FLASH_LOCAL_META_NAME);
+
+	inline_as3(
+		"lua_state_t.real_ObjectList[%0] = class_value_t[func_name].apply(null, param_list_t);\n" : : "r"(result)
+	);
+
+	//
+	stack = lua_gettop(L);
+//	inline_as3("trace(%0)" : : "r"(stack));
+
+	//
+	return 1;
+}
+//-------------------------------------------------------------------------------------------------
+//flash object
+static int flash_local_gc(lua_State *L)
+{
+  	int stack = lua_gettop(L);
+	if(lua_type(L, 1) != LUA_TUSERDATA)
+	{
+		lua_pop(L, stack);
+		
+		inline_as3("trace(\"[LuaState] (%0) stack (%1) error.\");" : : "r"(L), "r"(stack));
+		return 1;
+	}
+	//
+	//void*		data	= lua_touserdata(L, 1);
+
+	//
+	lua_pop(L, 1);
+
+	//
+	return 0;
+}
+
+static int flash_local_tostring(lua_State *L) 
+{
+	int stack = lua_gettop(L);
+	if(lua_type(L, 1) != LUA_TUSERDATA)
+	{
+		lua_pop(L, stack);
+		
+		inline_as3("trace(\"[LuaState] (%0) stack (%1) error.\");" : : "r"(L), "r"(stack));
+		return 1;
+	}
+
+	//
+	void*		data	= lua_touserdata(L, 1);
+
+  	lua_pop(L, 1);
+  	
+  	//
+  	const char* result = NULL;
+  	inline_as3(
+		"var lua_state_t:* = __lua_state_list[%1];\n"
+		"%0 = CModule.mallocString(lua_state_t.real_ObjectList[%2]);\n\n"
+		: "=r"(result): "r"(L), "r"(data)
+	);
+
+	//
+	lua_pushfstring(L, result);
+	free((void*)result);
+	return 1;
+}
+
+static int flash_local_getprop(lua_State *L) 
+{
+	int stack = lua_gettop(L);
+	if(lua_type(L, 1) != LUA_TUSERDATA || lua_type(L, 2) != LUA_TSTRING)
+	{
+		lua_pop(L, stack);
+		
+		inline_as3("trace(\"[LuaState] (%0) stack (%1) error.\");" : : "r"(L), "r"(stack));
+		return 1;
+	}
+
+	//
+	void*		data	= lua_touserdata(L, 1);
+
+	//
+	size_t 		length	= 0;
+	const char*	text 	= lua_tolstring(L, 2, &length);
+	AS3_DeclareVar(prop_name, String);
+	AS3_CopyCStringToVar(prop_name, text, length);
+	
+	lua_pop(L, 2);
+
+	//
+	void*	result = flash_pushreference(L, FLASH_LOCAL_META_NAME);
+
+	//
+	inline_as3(
+		"var lua_state_t:* = __lua_state_list[%0];\n"
+		"var prop_name_t:* = lua_state_t.real_ObjectList[%1][\"script_\"+prop_name];\n" 
+		"lua_state_t.real_ObjectList[%2] = prop_name_t;"
+		: : "r"(L), "r"(data), "r"(result)
+	);
+
+	//
+	return 1;
+}
+
+
 //
+static const luaL_Reg flash_local_meta[] = 
+{
+	{"__gc",        flash_local_gc},
+	{"__tostring",  flash_local_tostring},
+	{"__index",     flash_local_getprop},	
+	{0, 0}
+};
+
+//-------------------------------------------------------------------------------------------------
+// library
 static const luaL_Reg flashlib[] = 
 {
 	{"trace", 		flash_trace},
@@ -676,16 +973,32 @@ static const luaL_Reg flashlib[] =
 	{"asnumber", 	flash_asnumber},
 	{"asstring", 	flash_asstring},
 
+  	{"call", 		flash_call},
+  	{"callstatic", 	flash_callstatic},
+
 	{NULL, NULL}
 };
+
+//
+LUA_API void	flash_newlocalmetafunc(lua_State *L, const char *name)
+{
+	luaL_getmetatable(L, name);
+	luaL_setfuncs(L, flash_local_meta, 0);
+	lua_pop(L, 1);
+}
 
 //
 LUAMOD_API int luaopen_flash (lua_State *L) 
 {
 	luaL_newlib(L, flashlib);
 
+	int stack = lua_gettop(L);
+
 	//
 	flash_newclassmeta(L, FLASH_LOCAL_META_NAME);
+	flash_newlocalmetafunc(L, FLASH_LOCAL_META_NAME);
+
+	stack = lua_gettop(L);
 
 	//
 	return 1;

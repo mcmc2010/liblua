@@ -26,6 +26,16 @@ function Helloflash(text)
 	flash.setprop(__this, "_test_string", "2200");
 
 	flash.setprop(__this, "_test_object", temp);
+
+	--
+	flash.call(__this, "test", "hello as3 code, the method call.");
+	flash.callstatic("samples", "test_static", "hello as3 code, the method static call.");	
+
+	-- call __tostring 
+	flash.trace(string.format("%s", __this));
+	-- call __index
+	flash.trace(__this.test_string);
+
 	--	
 	return 123, "abcdef", text;
 end

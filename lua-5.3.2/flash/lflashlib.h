@@ -37,6 +37,7 @@ LUA_API int 			luaL_getmetatable(lua_State *L, const char *n);
 //flash 
 LUA_API void			flash_newclassmeta(lua_State *L, const char *name);
 LUA_API void*			flash_pushreference(lua_State *L, const char *name);
+LUA_API void			flash_newlocalmetafunc(lua_State *L, const char *name);
 
 #define LUA_FLASHLIBNAME	"flash"
 LUAMOD_API int 	(luaopen_flash) (lua_State *L);

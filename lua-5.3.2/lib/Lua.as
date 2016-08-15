@@ -1524,6 +1524,10 @@ public class Lua {
 		return _wrap_flash_pushreference(L, name);
 	}
 
+	public static function flash_newlocalmetafunc(L:Number, name:String):void {
+		_wrap_flash_newlocalmetafunc(L, name);
+	}
+
 	public static function get LUA_FLASHLIBNAME():String{
 		return _wrap_LUA_FLASHLIBNAME();
 	}

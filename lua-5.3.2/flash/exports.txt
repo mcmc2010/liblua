@@ -100,6 +100,7 @@ _wrap_LUA_VERSION_NUM
 _wrap_LUA_VERSION_RELEASE
 _wrap_LUA_YIELD
 _wrap_flash_newclassmeta
+_wrap_flash_newlocalmetafunc
 _wrap_flash_pushreference
 _wrap_luaL_addlstring
 _wrap_luaL_addstring
@@ -274,6 +275,7 @@ _wrap_luaopen_table
 _wrap_luaopen_utf8
 avm2_self_unlock
 flash_newclassmeta
+flash_newlocalmetafunc
 flash_pushreference
 free
 luaL_addlstring

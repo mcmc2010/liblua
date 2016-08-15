@@ -81,6 +81,20 @@ package mxlib
 			var type_name:String = getQualifiedClassName(object_refer);
 			this.luaAS3_newclassmeta(type_name);
 		}
+
+		public function luaAS3_newclassmetaL(type_name:String) : void
+		{
+			Lua.flash_newclassmeta(this.real_LuaState, type_name);
+			Lua.flash_newlocalmetafunc(this.real_LuaState, type_name);
+
+			trace("[Lua_State] : new class meta : " + type_name);
+		}
+
+		public function luaAS3_newclassmetaByObjectL(object_refer:*) : void
+		{
+			var type_name:String = getQualifiedClassName(object_refer);
+			this.luaAS3_newclassmetaL(type_name);
+		}
 			
 		public function luaAS3_newclassobject(object_refer:*, object_name:String, type_name:String = null) : void
 		{
@@ -358,6 +372,10 @@ package mxlib
 		public static function flash_pushreference(L:Number, name:String) : int 
 		{
 			return _wrap_flash_pushreference(L, name);
-		}		
+		}	
+		public static function flash_newlocalmetafunc(L:Number, name:String) : int 
+		{
+			return _wrap_flash_newlocalmetafunc(L, name);
+		}				
 	};
 };

@@ -16,6 +16,8 @@ package
 		public var _test_string:String = "DDDD";
 		public var _test_object:* = null;
 		
+		public function get script_test_string() : String { return this._test_string; }
+		
 		public function samples()
 		{			
 			this._scriptRead = new ScriptRead();
@@ -36,8 +38,18 @@ package
 		
 		public function regclass(lua:ScriptContentLua) : void
 		{
-			lua.lua_state.luaAS3_newclassmetaByObject(this);
+			lua.lua_state.luaAS3_newclassmetaByObjectL(this);
 			lua.lua_state.luaAS3_newclassobject(this, "__this");
+		}
+		
+		public function test(text:String) : void
+		{
+			trace(text);
+		}
+		
+		public static function test_static(text:String) : void
+		{
+			trace(text);
 		}
 	}
 }
