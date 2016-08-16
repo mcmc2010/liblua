@@ -33,12 +33,9 @@ function Helloflash(text)
 
 	-- call __tostring 
 	flash.trace(string.format("%s", __this));
-	-- call __newindex
-	__this.test_string = "3200";
 	-- call __index
 	flash.trace(__this.test_string);
-	-- call __call
-	__script:Logout("This is script output text.");
+
 	--	
 	return 123, "abcdef", text;
 end

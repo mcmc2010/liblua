@@ -422,7 +422,7 @@ static int flash_setprop (lua_State *L)
 		}
 		case LUA_TSTRING:
 		{
-			text = lua_tolstring(L, 3, &length);
+			const char* text = lua_tolstring(L, 3, &length);
 				
 			AS3_DeclareVar(prop_text, String);
 			AS3_CopyCStringToVar(prop_text, text, length);
@@ -704,7 +704,7 @@ static int flash_call (lua_State *L)
 			}
 			case LUA_TSTRING:
 			{
-				text = lua_tolstring(L, param_index, &length);
+				const char* text = lua_tolstring(L, param_index, &length);
 					
 				AS3_DeclareVar(value_text, String);
 				AS3_CopyCStringToVar(value_text, text, length);
@@ -810,7 +810,7 @@ static int flash_callstatic (lua_State *L)
 			}
 			case LUA_TSTRING:
 			{
-				text = lua_tolstring(L, param_index, &length);
+				const char* text = lua_tolstring(L, param_index, &length);
 					
 				AS3_DeclareVar(value_text, String);
 				AS3_CopyCStringToVar(value_text, text, length);
@@ -942,197 +942,13 @@ static int flash_local_getprop(lua_State *L)
 	return 1;
 }
 
-static int flash_local_setprop(lua_State *L) 
-{
-	int stack = lua_gettop(L);
-	if(lua_type(L, 1) != LUA_TUSERDATA || lua_type(L, 2) != LUA_TSTRING)
-	{
-		lua_pop(L, stack);
-		
-		inline_as3("trace(\"[LuaState] (%0) stack (%1) error.\");" : : "r"(L), "r"(stack));
-		return 1;
-	}
-
-	//
-	void*		data	= lua_touserdata(L, 1);
-
-	//
-	size_t 		length	= 0;
-	const char*	text 	= lua_tolstring(L, 2, &length);
-	AS3_DeclareVar(prop_name, String);
-	AS3_CopyCStringToVar(prop_name, text, length);
-
-	//
-	inline_as3( "var lua_state_t:* = __lua_state_list[%0];\n" : : "r"(L) );
-
-	switch(lua_type(L, 3))
-	{
-		// case LUA_TNIL:
-		// {
-		// 	inline_as3(
-		// 		"lua_state_t.real_ObjectList[%0][prop_name] = null;\n" 
-		// 		: : "r"(data)
-		// 	);
-		// 	break;
-		// }
-		case LUA_TBOOLEAN:
-		{
-			int value = lua_toboolean(L, 3);
-			inline_as3(
-				"lua_state_t.real_ObjectList[%0][\"script_\"+prop_name] = %1;\n" 
-				: : "r"(data), "r"(value)
-			);
-			break;
-		}
-		case LUA_TNUMBER:
-		{
-			lua_Number value = lua_tonumber(L, 3);
-			inline_as3(
-				"lua_state_t.real_ObjectList[%0][\"script_\"+prop_name] = %1;\n" 
-				: : "r"(data), "r"(value)
-			);
-			break;
-		}
-		case LUA_TSTRING:
-		{
-			text = lua_tolstring(L, 3, &length);
-				
-			AS3_DeclareVar(prop_text, String);
-			AS3_CopyCStringToVar(prop_text, text, length);
-
-			inline_as3(
-				"lua_state_t.real_ObjectList[%0][\"script_\"+prop_name] = prop_text;\n" 
-				: : "r"(data)
-			);
-			break;
-		}
-		case LUA_TUSERDATA:
-		{
-			void*		value	= lua_touserdata(L, 3);
-
-			inline_as3(
-				"lua_state_t.real_ObjectList[%0][\"script_\"+prop_name] = lua_state_t.real_ObjectList[%1];\n" 
-				: : "r"(data), "r"(value)
-			);
-			break;
-		}
-		default:
-        {
-        	inline_as3("trace(\"[LuaState] unknown type code : \" + %0);\n" :  : "r"(lua_type(L, 3)));
-        	break;
-        }
-	}
-
-	//
-	lua_pop(L, 3);
-
-	stack = lua_gettop(L);
-//	inline_as3("trace(%0)" : : "r"(stack));
-
-	//
-	return 1;
-}
-
-static int flash_local_apply(lua_State *L) 
-{
-	int stack = lua_gettop(L); 
-	
-	if(lua_type(L, 1) != LUA_TUSERDATA || lua_type(L, 2) != LUA_TUSERDATA)
-	{
-		lua_pop(L, stack);
-		
-		inline_as3("trace(\"[LuaState] (%0) stack (%1) error.\");" : : "r"(L), "r"(stack));
-		return 1;
-	}
-
-	//
-	void*		func_data	= lua_touserdata(L, 1);
-	void*		this_data	= lua_touserdata(L, 2);
-
-	//
-	size_t 		length		= 0;
-	const char*	text 		= NULL;
-
-	//
-	inline_as3( 
-		"var lua_state_t:* = __lua_state_list[%0];\n" 
-		"var param_list_t:Array = [ ];\n"
-		: : "r"(L) 
-	);
-
-	//
-	int 	param_index = 3;
-	while(param_index <= stack)
-	{
-		switch(lua_type(L, param_index))
-		{
-			case LUA_TBOOLEAN:
-			{
-				int value = lua_toboolean(L, param_index);
-				inline_as3( "param_list_t.push(%0);\n" : : "r"(value) );
-				break;
-			}
-			case LUA_TNUMBER:
-			{
-				lua_Number value = lua_tonumber(L, param_index);
-				inline_as3("param_list_t.push(%0);\n" : : "r"(value) );
-				break;
-			}
-			case LUA_TSTRING:
-			{
-				text = lua_tolstring(L, param_index, &length);
-					
-				AS3_DeclareVar(value_text, String);
-				AS3_CopyCStringToVar(value_text, text, length);
-
-				inline_as3("param_list_t.push(value_text);\n" : : );
-				break;
-			}
-			case LUA_TUSERDATA:
-			{
-				void*		value	= lua_touserdata(L, param_index);
-				inline_as3("param_list_t.push(lua_state_t.real_ObjectList[%0]);\n" : : "r"(value));
-				break;
-			}
-			default:
-	       		{
-	        			inline_as3("trace(\"[LuaState] unknown type code (\"+ %0 + \") : \" + %1);\n" 
-	        				:  : "r"(param_index), "r"(lua_type(L, param_index)));
-	        			break;
-	        		}
-		}
-
-		//
-		param_index ++;
-	}
-
-	//
-	lua_pop(L, stack);
-
-	//
-	void*	result = flash_pushreference(L, FLASH_LOCAL_META_NAME);
-
-	inline_as3(
-		"lua_state_t.real_ObjectList[%0] = lua_state_t.real_ObjectList[%1] .apply(%2, param_list_t);\n" 
-		: : "r"(result), "r"(func_data), "r"(this_data)
-	);
-
-	//
-	stack = lua_gettop(L);
-	
-	//
-	return 1;
-}
-
 
 //
 static const luaL_Reg flash_local_meta[] = 
 {
-	{"__gc",        		flash_local_gc},
-	{"__tostring", 	 	flash_local_tostring},
-	{"__index",     		flash_local_getprop},	
-	{"__newindex",     	flash_local_setprop},	
-	{"__call",     		flash_local_apply},			
+	{"__gc",        flash_local_gc},
+	{"__tostring",  flash_local_tostring},
+	{"__index",     flash_local_getprop},	
 	{0, 0}
 };
 
