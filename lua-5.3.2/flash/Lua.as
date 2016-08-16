@@ -24,6 +24,8 @@ package mxlib
 	// 用來存放LUA的狀態機
 	public class Lua_State
 	{
+		public static function get FLASH_LOCAL_META_NAME() : String { return "flash_local"; }
+
 		private var _real_LuaState:Number = 0;
 		public function get real_LuaState() : Number { return this._real_LuaState;  }
 		private var _real_ObjectList:Dictionary = new Dictionary();
@@ -107,6 +109,16 @@ package mxlib
 			Lua.lua_setglobal(this.real_LuaState, object_name);
 
 			trace("[Lua_State] : def class meta : " + type + ":-> object : " + object_name);
+		}
+
+		public function luaAS3_pushobject(object_refer:*, type_name:String = null) : void
+		{
+			var type:String = (type_name != null ? type_name : FLASH_LOCAL_META_NAME);
+			var data:Number = Lua.flash_pushreference(this.real_LuaState, type);
+			if(data != 0)
+			{
+				this._real_ObjectList[data] = object_refer;
+			}
 		}
 	};
 

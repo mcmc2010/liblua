@@ -17,6 +17,7 @@ package
 		public var _test_object:* = null;
 		
 		public function get script_test_string() : String { return this._test_string; }
+		public function set script_test_string(text:String) : void { this._test_string = text; }
 		
 		public function samples()
 		{			
